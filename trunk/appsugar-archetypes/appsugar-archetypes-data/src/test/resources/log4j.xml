@@ -19,9 +19,12 @@
 	</logger>	
 	
 	<logger name="org.hibernate">
-		<level value="warn" />
+		<level value="WARN" />
 	</logger>	
 	
+	<logger name="org.hibernate.SQL">
+		<level value="DEBUG" />
+	</logger>	
 	<!-- Root Logger -->
 	<root>
 		<priority value="debug" />
