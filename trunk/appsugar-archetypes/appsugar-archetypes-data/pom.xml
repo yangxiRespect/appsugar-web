@@ -1,0 +1,151 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.appsugar.archetypes</groupId>
+		<artifactId>appsugar-archetypes</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<groupId>org.appsugar.archetypes</groupId>
+	<artifactId>appsugar-archetypes-data</artifactId>
+	<name>appsugar-archetypes-data</name> 
+	<url>http://maven.apache.org</url>
+	<packaging>jar</packaging>
+	
+  
+	<properties>
+		<spring.version>4.1.9.RELEASE</spring.version>
+		<!-- jdbc  -->
+		<db.name>appsugar</db.name>
+		<jdbc.groupId>com.h2database</jdbc.groupId>
+		<jdbc.artifactId>h2</jdbc.artifactId>
+		<jdbc.version>1.4.191</jdbc.version>
+		<jdbc.url>jdbc:h2:~/tmp/${db.name}</jdbc.url>
+		<jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
+		<jdbc.username>sa</jdbc.username>
+		<jdbc.password/>
+		<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+		<!-- mysql dbunit.dataTypeFactoryName org.dbunit.ext.mysql.MySqlDataTypeFactory-->
+		<dbunit.dataTypeFactoryName>org.dbunit.ext.h2.H2DataTypeFactory</dbunit.dataTypeFactoryName>
+		<dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
+	</properties>
+	
+	<dependencies>
+		<!-- appsugar -->
+		<dependency>
+	        <groupId>org.appsugar</groupId>
+			<artifactId>appsugar-data</artifactId>
+	    </dependency>
+	    <!-- internal -->
+	    <dependency>
+	        <groupId>org.appsugar.archetypes</groupId>
+			<artifactId>appsugar-archetypes-bean</artifactId>
+			<version>${project.version}</version>
+	    </dependency>
+		<dependency>
+			<groupId>${jdbc.groupId}</groupId>
+			<artifactId>${jdbc.artifactId}</artifactId>
+			<version>${jdbc.version}</version>
+		</dependency>		
+		<!-- test -->
+	    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.xml</exclude>
+				</excludes>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</testResource>
+		</testResources>
+		
+		<plugins>
+			<!-- Compiler 插件, 设定JDK版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<showWarnings>true</showWarnings>
+				</configuration>
+			</plugin>
+			
+			<!-- generate database plugin -->
+			<plugin>
+			  <groupId>de.juplo</groupId>
+			  <artifactId>hibernate4-maven-plugin</artifactId>
+			  <version>1.1.0</version>
+			  <executions>
+			    <execution>
+			      <phase>process-test-resources</phase>
+			      <goals>
+			        <goal>export</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			  <configuration>
+			    <driverClassName>${jdbc.driverClassName}</driverClassName>
+			    <hibernateDialect>${hibernate.dialect}</hibernateDialect>
+			    <url>${jdbc.url}</url>
+			    <username>${jdbc.username}</username>
+			    <password>${jdbc.password}</password>
+			    <skip>${skipTests}</skip>
+			  </configuration>
+			</plugin>
+			
+			<!-- import data plugin -->
+	    	  <plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>dbunit-maven-plugin</artifactId>
+					<version>1.0-beta-3</version>
+					<configuration>
+						<dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
+						<driver>${jdbc.driverClassName}</driver>
+						<username>${jdbc.username}</username>
+						<password>${jdbc.password}</password>
+						<url>${jdbc.url}</url>
+						<src>src/test/resources/data/sample-data.xml</src>
+						<type>${dbunit.operation.type}</type>
+						<format>flat</format>
+						<schema>${dbunit.schema}</schema>
+						<skip>${skipTests}</skip>
+						<transaction>true</transaction>
+					</configuration>
+					<executions>
+						<execution>
+							<id>test-compile</id>
+							<phase>test-compile</phase>
+							<goals>
+								<goal>operation</goal>
+							</goals>
+						</execution>
+					</executions>
+					<!--jar file that has the jdbc driver -->
+			        <dependencies>
+			          <dependency>
+			            <groupId>${jdbc.groupId}</groupId>
+			            <artifactId>${jdbc.artifactId}</artifactId>
+			            <version>${jdbc.version}</version>
+			          </dependency>
+			        </dependencies>
+				</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.appsugar.archetypes</groupId>
+	<artifactId>appsugar-archetypes</artifactId>
+	<version>1.0.0</version>
+	<name>appsugar-archetypes</name> 
+	<url>http://maven.apache.org</url>
+	<packaging>pom</packaging>
+	
+	
+	<modules>
+		<module>appsugar-archetypes-bean</module>
+		<module>appsugar-archetypes-data</module>
+	</modules>
+	
+	<properties>
+		<jdk.version>1.7</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<downloadSources>true</downloadSources>
+		<downloadJavadocs>true</downloadJavadocs>
+		<junit.version>4.12</junit.version>
+		<appsugar.version>1.0.0</appsugar.version>
+	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+			<!--internal  dependency-->
+			<dependency>
+		        <groupId>org.appsugar</groupId>
+				<artifactId>appsugar-data</artifactId>
+		        <version>${appsugar.version}</version>
+		    </dependency>
+			<dependency>
+		        <groupId>org.appsugar</groupId>
+				<artifactId>appsugar-bean</artifactId>
+		        <version>${appsugar.version}</version>
+		    </dependency>
+	    </dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+	    <dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
