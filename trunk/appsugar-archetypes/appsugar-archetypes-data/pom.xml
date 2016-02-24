@@ -148,4 +148,24 @@
 				</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+		<id>mysql</id>
+		<properties>
+			<jdbc.type>MYSQL</jdbc.type>
+			<jdbc.url>jdbc:mysql://192.168.1.9:3306/${db.name}?useUnicode=true&amp;characterEncoding=utf-8</jdbc.url>
+			<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+			<jdbc.username>root</jdbc.username>
+			<jdbc.password>123456</jdbc.password>
+			<jdbc.groupId>mysql</jdbc.groupId>
+			<jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+			<jdbc.version>5.1.37</jdbc.version>
+			<!-- dbunit -->
+			<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+			<dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
+			<dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
+		</properties>
+	</profile>
+	</profiles>
 </project>
