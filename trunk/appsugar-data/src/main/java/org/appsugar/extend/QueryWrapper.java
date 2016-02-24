@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
  * @author NewYoung
  * 2016年2月18日下午2:24:21
  */
-public class QueryWrapper<T> {
+public class QueryWrapper {
 
 	protected CriteriaQuery<?> query;
 

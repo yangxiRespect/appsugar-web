@@ -10,7 +10,7 @@ import javax.persistence.criteria.Root;
  * 2016年2月18日下午2:56:01
  * @param <T>
  */
-public class SpecificationQueryWrapper<T> extends QueryWrapper<T> {
+public class SpecificationQueryWrapper<T> extends QueryWrapper {
 
 	private Root<T> root;
 

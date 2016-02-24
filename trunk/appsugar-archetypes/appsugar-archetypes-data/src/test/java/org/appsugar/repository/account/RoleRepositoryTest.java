@@ -1,6 +1,11 @@
 package org.appsugar.repository.account;
 
+import java.util.List;
+
+import org.apache.commons.collections4.CollectionUtils;
 import org.appsugar.BaseJpaDaoTestCase;
+import org.appsugar.dto.account.RoleUserDto;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,4 +25,17 @@ public class RoleRepositoryTest extends BaseJpaDaoTestCase {
 		repository.deleteRole(id);
 	}
 
+	@Test
+	public void testGetRoleStatistic() {
+		List<RoleUserDto> roleUserDtoList = repository.getRoleStatistic();
+		logger.debug("testGetRoleStatistic result is {}", roleUserDtoList);
+		Assert.assertTrue(CollectionUtils.isNotEmpty(roleUserDtoList));
+	}
+
+	@Test
+	public void testFindRoleStatistic() {
+		List<RoleUserDto> roleUserDtoList = repository.findRoleStatistic(-2l);
+		logger.debug("testFindRoleStatistic result is {}", roleUserDtoList);
+		Assert.assertTrue(CollectionUtils.isNotEmpty(roleUserDtoList));
+	}
 }
