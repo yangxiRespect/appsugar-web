@@ -35,6 +35,16 @@ public class Role extends IdEntity {
 	//角色下所有用户
 	private List<User> userList;
 
+	public Role() {
+		super();
+	}
+
+	public Role(String name, String title) {
+		super();
+		this.name = name;
+		this.title = title;
+	}
+
 	@Column(name = "name", unique = true)
 	public String getName() {
 		return name;

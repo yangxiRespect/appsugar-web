@@ -15,6 +15,7 @@
   
 	<properties>
 		<spring.version>4.1.9.RELEASE</spring.version>
+		<hibernate.version>4.2.0.Final</hibernate.version>
 		<!-- jdbc  -->
 		<db.name>appsugar</db.name>
 		<jdbc.groupId>com.h2database</jdbc.groupId>
@@ -47,6 +48,18 @@
 			<artifactId>${jdbc.artifactId}</artifactId>
 			<version>${jdbc.version}</version>
 		</dependency>		
+		
+		<!-- hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.3.Final</version>
+		</dependency>
 		<!-- test -->
 	    <dependency>
 			<groupId>org.springframework</groupId>

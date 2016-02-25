@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.appsugar.BaseJpaDaoTestCase;
 import org.appsugar.dto.account.RoleUserDto;
+import org.appsugar.entity.account.Role;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,14 @@ public class RoleRepositoryTest extends BaseJpaDaoTestCase {
 
 	@Autowired
 	private RoleRepository repository;
+
+	@Test
+	public void testSave() {
+		Role role = new Role("testSave", "title");
+		repository.saveAndFlush(role);
+		Assert.assertNotNull(role.getId());
+		logger.debug("test save role id is {}", role.getId());
+	}
 
 	@Test
 	public void testDeleteRole() {

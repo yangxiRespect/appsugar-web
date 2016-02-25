@@ -26,6 +26,17 @@ public abstract class IdEntity {
 	//数据修改时间
 	protected Date updatedAt;
 
+	public IdEntity() {
+		super();
+	}
+
+	public IdEntity(Long id, Date createdAt, Date updatedAt) {
+		super();
+		this.id = id;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
