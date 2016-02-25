@@ -27,12 +27,13 @@ public class IdEntityRepositoryImpl<T, ID extends Serializable> extends SimpleJp
 	@Override
 	public <S extends T> S save(S entity) {
 		if (entity instanceof IdEntity) {
-			beforeSave((IdEntity) entity, new Date());
+			beforeSave((IdEntity) entity);
 		}
 		return super.save(entity);
 	}
 
-	protected void beforeSave(IdEntity entity, Date date) {
+	protected void beforeSave(IdEntity entity) {
+		Date date = new Date();
 		if (entity.getId() == null) {
 			entity.setCreatedAt(date);
 		}

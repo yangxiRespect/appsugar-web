@@ -34,6 +34,16 @@
 			</list>
 		</property>
 		<property name="dataSource" ref="dataSource"/>
+		<property name="jpaPropertyMap">  
+            <map>  
+                <entry key="hibernate.query.substitutions" value="f"/>  
+                <entry key="hibernate.default_batch_fetch_size" value="16"/>  
+                <entry key="hibernate.max_fetch_depth" value="2"/>  
+                <entry key="hibernate.bytecode.use_reflection_optimizer" value="true"/>  
+                <entry key="hibernate.cache.use_second_level_cache" value="false"/>  
+                <entry key="hibernate.cache.use_query_cache" value="false"/>  
+            </map>  
+        </property>    
 	</bean>
 	<!-- Jpa 事务配置 -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
