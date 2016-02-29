@@ -12,6 +12,7 @@
 	<modules>
 		<module>appsugar-archetypes-bean</module>
 		<module>appsugar-archetypes-data</module>
+		<module>appsugar-archetypes-service</module>
 	</modules>
 	
 	<properties>
@@ -21,6 +22,20 @@
 		<downloadJavadocs>true</downloadJavadocs>
 		<junit.version>4.12</junit.version>
 		<appsugar.version>1.0.0</appsugar.version>
+		<mockito.version>2.0.2-beta</mockito.version>
+		
+		<spring.version>4.1.9.RELEASE</spring.version>
+		<hibernate.version>4.2.0.Final</hibernate.version>
+		<!-- jdbc  -->
+		<db.name>appsugar</db.name>
+		<jdbc.groupId>com.h2database</jdbc.groupId>
+		<jdbc.artifactId>h2</jdbc.artifactId>
+		<jdbc.version>1.4.191</jdbc.version>
+		<jdbc.url>jdbc:h2:~/tmp/${db.name}</jdbc.url>
+		<jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
+		<jdbc.username>sa</jdbc.username>
+		<jdbc.password/>
+		<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 	</properties>
 	
 	<dependencyManagement>
@@ -36,6 +51,22 @@
 				<artifactId>appsugar-bean</artifactId>
 		        <version>${appsugar.version}</version>
 		    </dependency>
+			<dependency>
+		        <groupId>org.appsugar</groupId>
+				<artifactId>appsugar-service</artifactId>
+		        <version>${appsugar.version}</version>
+		    </dependency>
+			
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>${mockito.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
 	    </dependencies>
 	</dependencyManagement>
 	
@@ -63,4 +94,24 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+		<id>mysql</id>
+		<properties>
+			<jdbc.type>MYSQL</jdbc.type>
+			<jdbc.url>jdbc:mysql://192.168.1.9:3306/${db.name}?useUnicode=true&amp;characterEncoding=utf-8</jdbc.url>
+			<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+			<jdbc.username>root</jdbc.username>
+			<jdbc.password>123456</jdbc.password>
+			<jdbc.groupId>mysql</jdbc.groupId>
+			<jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+			<jdbc.version>5.1.37</jdbc.version>
+			<!-- dbunit -->
+			<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+			<dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
+			<dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
+		</properties>
+	</profile>
+	</profiles>
 </project>

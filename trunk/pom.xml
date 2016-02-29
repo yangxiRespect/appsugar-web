@@ -20,6 +20,7 @@
 	<modules>
 		<module>appsugar-bean</module>
 		<module>appsugar-data</module>
+		<module>appsugar-service</module>
 		<module>appsugar-archetypes</module>
 	</modules>
 	
