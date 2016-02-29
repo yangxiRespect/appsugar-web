@@ -13,6 +13,7 @@
 		<module>appsugar-archetypes-bean</module>
 		<module>appsugar-archetypes-data</module>
 		<module>appsugar-archetypes-service</module>
+		<module>appsugar-archetypes-web</module>
 	</modules>
 	
 	<properties>
