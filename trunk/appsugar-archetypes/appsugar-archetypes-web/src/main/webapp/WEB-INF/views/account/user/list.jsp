@@ -6,17 +6,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
-<html>
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link
-	href="<c:url value='/webjars/bootstrap/3.3.6/css/bootstrap.min.css'/>" rel="stylesheet">
-	<!-- scripts -->
-	<script type="text/javascript" src="<c:url value='/webjars/jquery/2.2.1/jquery.min.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/webjars/bootstrap/3.3.6/js/bootstrap.min.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/static/js/formutil.js'/>"></script>
+<title>用户管理</title>
 </head>
 <body>
 	<div class="row">
@@ -45,8 +37,7 @@
 			<c:forEach var="user" items="${page.content}">
 				<tr>
 					<td>${user.id}</td>
-					<td><fmt:formatDate value="${user.createdAt}"
-							pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td><fmt:formatDate value="${user.createdAt}" pattern="yyyy-MM-dd HH:mm"/></td>
 					<td>${user.name}</td>
 					<td>${user.loginName}</td>
 				</tr>
@@ -56,4 +47,3 @@
 	<tags:pagination page="${page}" />
 </body>
 
-</html>

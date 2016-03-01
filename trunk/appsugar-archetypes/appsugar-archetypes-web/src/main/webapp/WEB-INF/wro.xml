@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro">
+
+    <!-- CSS URL Rewriting fails when using webjar resource locator:
+         https://github.com/alexo/wro4j/issues/127 -->
+    <group name="main">
+        <css>classpath:META-INF/resources/webjars/bootstrap/3.3.6/css/bootstrap.min.css</css>
+        <css>/static/css/style.css</css>
+        
+        <js>classpath:META-INF/resources/webjars/jquery/2.2.1/jquery.min.js</js>
+        <js>classpath:META-INF/resources/webjars/bootstrap/3.3.6/js/bootstrap.min.js</js>
+        <js>/static/js/formutil.js</js>
+    </group>
+</groups>
