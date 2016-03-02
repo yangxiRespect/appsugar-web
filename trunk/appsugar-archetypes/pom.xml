@@ -13,6 +13,7 @@
 		<module>appsugar-archetypes-bean</module>
 		<module>appsugar-archetypes-data</module>
 		<module>appsugar-archetypes-service</module>
+		<module>appsugar-archetypes-security</module>
 		<module>appsugar-archetypes-web</module>
 	</modules>
 	
@@ -27,6 +28,7 @@
 		
 		<spring.version>4.1.9.RELEASE</spring.version>
 		<hibernate.version>4.2.0.Final</hibernate.version>
+		<ehcache.version>2.10.1</ehcache.version>
 		<!-- jdbc  -->
 		<db.name>appsugar</db.name>
 		<jdbc.groupId>com.h2database</jdbc.groupId>
