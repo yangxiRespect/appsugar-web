@@ -1,5 +1,6 @@
 package org.appsugar;
 
+import org.appsugar.entity.account.User;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,8 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @WebAppConfiguration
 @ContextConfiguration({ "classpath*:/applicationContext.xml", "classpath:/applicationContext-resource.xml",
-		"classpath:/applicationContext-mvc.xml" })
+		"classpath:/applicationContext-mvc.xml", "classpath:/applicationContext-shiro.xml",
+		"classpath:/applicationContext-security.xml" })
 public abstract class BaseControllerTestCase extends AbstractTransactionalJUnit4SpringContextTests {
 
 	protected final String MEDIA_TYPE_APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
@@ -34,6 +36,12 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalJUnit4
 	@Before
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+		ShiroTestUtils.mockSubject(new User());
+	}
+
+	@org.junit.After
+	public void clearUp() {
+		ShiroTestUtils.clearSubject();
 	}
 
 }

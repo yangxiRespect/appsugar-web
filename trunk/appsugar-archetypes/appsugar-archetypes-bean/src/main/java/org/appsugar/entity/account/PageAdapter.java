@@ -7,7 +7,7 @@ package org.appsugar.entity.account;
  */
 public class PageAdapter {
 	//每页条数
-	protected int pageSize = 25;
+	protected int pageSize = 10;
 	//当前页
 	protected int pageNum = 0;
 	//排序

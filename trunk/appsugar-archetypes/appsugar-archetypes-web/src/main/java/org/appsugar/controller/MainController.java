@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 2016年3月1日下午5:20:19
  */
 @Controller
-@RequestMapping("/main")
 public class MainController {
 
 	/**
 	 * 转换至首页
 	 */
-	@RequestMapping
+	@RequestMapping("/main")
 	public String main() {
 		return "/index";
 	}
+
 }

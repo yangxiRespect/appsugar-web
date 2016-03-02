@@ -1,5 +1,9 @@
 package org.appsugar.controller.menu;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.subject.Subject;
+import org.appsugar.security.shiro.ShiroUtils;
+
 /**
  * 菜单配置
  * @author NewYoung
@@ -75,6 +79,20 @@ public class MenuConfig {
 
 	public void setPermission(String permission) {
 		this.permission = permission;
+	}
+
+	/**
+	 * 判断当前用户是否拥有权限查看该菜单
+	 */
+	public boolean isShow() {
+		Subject subject = ShiroUtils.getSubject();
+		if (StringUtils.isNotBlank(permission) && subject.isPermitted(permission)) {
+			return true;
+		}
+		if (StringUtils.isNotBlank(role) && subject.hasRole(role)) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

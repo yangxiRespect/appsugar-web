@@ -33,4 +33,14 @@
   			</list>
   		</property>
   	  </bean>
+  	  
+  	   
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realms" >
+			<list>
+				<ref bean="shiroRealm"/>
+			</list>
+		</property>
+		<property name="cacheManager" ref="shiroCacheManager" />
+	</bean>
 </beans>

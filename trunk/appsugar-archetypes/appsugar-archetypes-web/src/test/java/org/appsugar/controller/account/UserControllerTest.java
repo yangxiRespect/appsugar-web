@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 /**
@@ -31,5 +32,11 @@ public class UserControllerTest extends BaseControllerTestCase {
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/account/user/listUser")
 				.accept(MediaType.parseMediaType(MEDIA_TYPE_APPLICATION_JSON_UTF8))).andReturn();
 		logger.debug("contetn is {}", result.getResponse().getContentAsString());
+	}
+
+	@Test
+	public void testForm() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/account/user/create?id=-1").accept(MediaType.ALL))
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 }

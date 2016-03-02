@@ -19,6 +19,7 @@ public class ShiroReamlTest extends BaseSecurityTestCase {
 		String password = "admin";
 		Subject subject = ShiroUtils.getSubject();
 		subject.login(new UsernamePasswordToken(loginName, password.toCharArray()));
+		logger.debug("has permission {}", subject.isPermitted("user:view"));
 		Assert.assertTrue(subject.isAuthenticated());
 	}
 }

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
@@ -44,6 +45,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<shiro:hasPermission name="user:edit">
+		<div><a class="btn btn-default btn-primary" href="create">创建用户</a></div>
+	</shiro:hasPermission>
 	<tags:pagination page="${page}" />
 </body>
 

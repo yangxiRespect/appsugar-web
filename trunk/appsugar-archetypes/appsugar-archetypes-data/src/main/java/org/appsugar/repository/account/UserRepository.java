@@ -22,4 +22,5 @@ public interface UserRepository extends IdEntityRepository<User> {
 	@Modifying
 	@Query(value = "delete as_user_role where role_id = ?1", nativeQuery = true)
 	public void deleteRoleRelationship(Long roleId);
+
 }

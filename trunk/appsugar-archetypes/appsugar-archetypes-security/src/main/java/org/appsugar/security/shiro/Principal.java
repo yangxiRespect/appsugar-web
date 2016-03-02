@@ -12,11 +12,13 @@ import com.google.common.collect.Maps;
 public class Principal {
 
 	public final Long id;
+	public final String name;
 
 	private Map<String, Object> attributes = Maps.newHashMap();
 
-	public Principal(Long id) {
+	public Principal(Long id, String name) {
 		this.id = id;
+		this.name = name;
 	}
 
 	public Map<String, Object> getAttributes() {
@@ -34,6 +36,10 @@ public class Principal {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	@Override

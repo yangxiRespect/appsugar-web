@@ -38,6 +38,19 @@ public class MenuGroup extends MenuConfig {
 		menuList.add(menu);
 	}
 
+	/**
+	 * 判断当前用户是否能够查看这个菜单组
+	 */
+	@Override
+	public boolean isShow() {
+		for (MenuConfig menuConfig : menuList) {
+			if (menuConfig.isShow()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

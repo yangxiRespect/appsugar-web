@@ -22,4 +22,5 @@ public interface UserService extends GenericService<User> {
 	 * 根据条件查询
 	 */
 	public Page<User> getByCondition(UserCondition condition, Pageable pageable);
+
 }

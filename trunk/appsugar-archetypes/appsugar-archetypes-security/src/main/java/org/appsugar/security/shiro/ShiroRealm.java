@@ -65,7 +65,8 @@ public class ShiroRealm extends AuthorizingRealm {
 	}
 
 	protected Principal getUserPrincipal(User user) {
-		Principal prin = new Principal(user.getId());
+		Principal prin = new Principal(user.getId(), user.getName());
+		prin.setAttribute("name", user.getName());
 		return prin;
 	}
 

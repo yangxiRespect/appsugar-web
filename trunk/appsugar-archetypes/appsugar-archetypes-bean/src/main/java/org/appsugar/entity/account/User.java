@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.appsugar.entity.IdEntity;
+import org.hibernate.validator.constraints.Email;
 
 /**
  * 用户
@@ -26,6 +27,8 @@ public class User extends IdEntity {
 	public static final String _name = "name";
 	public static final String _loginName = "loginName";
 	public static final String _password = "password";
+	public static final String _phone = "phone";
+	public static final String _email = "email";
 	public static final String _roleList = "roleList";
 	public static final String _permissionList = "permissionList";
 
@@ -35,6 +38,10 @@ public class User extends IdEntity {
 	private String loginName;
 	//密码
 	private String password;
+	//电话
+	private String phone;
+	//邮箱
+	private String email;
 	//角色
 	private List<Role> roleList;
 	//权限
@@ -67,8 +74,27 @@ public class User extends IdEntity {
 		this.password = password;
 	}
 
+	@Column(name = "phone")
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	@Column(name = "email")
+	@Email
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "as_user_role", joinColumns = @JoinColumn(name = "user_id") , inverseJoinColumns = @JoinColumn(name = "role_id") )
+	@JoinTable(name = "as_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	public List<Role> getRoleList() {
 		return roleList;
 	}
@@ -78,7 +104,7 @@ public class User extends IdEntity {
 	}
 
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "as_user_permission", joinColumns = @JoinColumn(name = "user_id") )
+	@CollectionTable(name = "as_user_permission", joinColumns = @JoinColumn(name = "user_id"))
 	@Column(name = "permission")
 	public List<String> getPermissionList() {
 		return permissionList;
@@ -91,19 +117,10 @@ public class User extends IdEntity {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("User [name=");
-		builder.append(name);
-		builder.append(", loginName=");
-		builder.append(loginName);
-		builder.append(", password=");
-		builder.append(password);
-		builder.append(", id=");
-		builder.append(id);
-		builder.append(", createdAt=");
-		builder.append(createdAt);
-		builder.append(", updatedAt=");
-		builder.append(updatedAt);
-		builder.append("]");
+		builder.append("User [name=").append(name).append(", loginName=").append(loginName).append(", password=")
+				.append(password).append(", phone=").append(phone).append(", email=").append(email).append(", id=")
+				.append(id).append(", createdAt=").append(createdAt).append(", updatedAt=").append(updatedAt)
+				.append("]");
 		return builder.toString();
 	}
 
