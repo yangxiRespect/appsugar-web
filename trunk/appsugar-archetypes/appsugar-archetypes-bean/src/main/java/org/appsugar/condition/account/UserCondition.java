@@ -11,9 +11,9 @@ import org.appsugar.condition.IdEntityCondition;
  */
 public class UserCondition extends IdEntityCondition {
 
-	//名称
+	//名称 start like
 	private String name;
-	//登陆名称
+	//登陆名称 eq
 	private String loginName;
 
 	public UserCondition() {

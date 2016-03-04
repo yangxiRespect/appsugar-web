@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 
+<br/><br/><br/>
 <div id="footer" class="container navbar-fixed-bottom">
 	<span class="col-sm-6 text-left">
 		App.Version | 你好， 

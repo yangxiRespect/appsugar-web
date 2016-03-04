@@ -12,16 +12,14 @@
 <title>用户管理</title>
 </head>
 <body>
-	<div class="row">
-		<div class="col-md-4 col-md-offset-7">
-			<form action="#" method="POST" class="form-inline">
-				<input type="text" name="name" class="form-control input-sm"
-					value="${param.name}">
-				<button type="submit" class="btn btn-primary btn-sm" id="search_btn">
-					<spring:message code="search" />
-				</button>
-			</form>
-		</div>
+	<div style="float: right">
+		<form action="#" method="POST" class="form-inline">
+			<input type="text" name="name" class="form-control input-sm"
+				value="${param.name}" placeholder="名称">
+			<button type="submit" class="btn btn-primary btn-sm" id="search_btn">
+				<spring:message code="search" />
+			</button>
+		</form>
 	</div>
 
 	<table class="table">
@@ -45,9 +43,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<shiro:hasPermission name="user:edit">
-		<div><a class="btn btn-default btn-primary" href="create">创建用户</a></div>
-	</shiro:hasPermission>
 	<tags:pagination page="${page}" />
 </body>
 

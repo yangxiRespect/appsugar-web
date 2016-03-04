@@ -20,6 +20,7 @@
 	MenuGroup menuGroup = new MenuGroup("SystemMenu","系统管理","meun.system");
 	menuGroupList.add(menuGroup);
 	//用户管理
-	menuGroup.addChild(new MenuConfig("/account/user/list","用户管理","menu.user",null,"user:view"));
-	//
+	menuGroup.addChild(new MenuConfig("/account/user","用户管理","menu.user",null,"user:view"));
+	//角色管理
+	menuGroup.addChild(new MenuConfig("/account/role","角色管理","menu.role",null,"roel:view"));
 %>

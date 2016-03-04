@@ -13,9 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.async.DeferredResult;
 
 /**
  * 用户controller
@@ -32,8 +34,9 @@ public class UserController {
 	private UserService userService;
 
 	@RequiresPermissions("user:view")
-	@RequestMapping({ "list", "" })
+	@RequestMapping
 	public String list(Model model, UserCondition condition, PageAdapter adapter) {
+		adapter.setPageSize(5);
 		model.addAttribute("page", userService.getByCondition(condition, adapter.toPageable()));
 		model.addAttribute("condition", condition);
 		return "/account/user/list";
@@ -42,16 +45,20 @@ public class UserController {
 	@RequiresPermissions("user:view")
 	@RequestMapping("listUser")
 	@ResponseBody
-	public List<UserDto> listUser() {
-		return UserDto.transfer(userService.getAll());
-	}
+	public DeferredResult<List<UserDto>> listUser() {
+		final DeferredResult<List<UserDto>> async = new DeferredResult<>();
+		userService.getAllAsync().addCallback(new ListenableFutureCallback<List<User>>() {
+			@Override
+			public void onSuccess(List<User> result) {
+				async.setResult(UserDto.transfer(result));
+			}
 
-	@RequiresPermissions("user:view")
-	@RequestMapping({ "create", "update" })
-	public String form(@ModelAttribute User user, Model model) {
-		logger.debug("user is {}", user);
-		model.addAttribute("user", user);
-		return "/account/user/form";
+			@Override
+			public void onFailure(Throwable ex) {
+				async.setErrorResult(ex);
+			}
+		});
+		return async;
 	}
 
 	@ModelAttribute

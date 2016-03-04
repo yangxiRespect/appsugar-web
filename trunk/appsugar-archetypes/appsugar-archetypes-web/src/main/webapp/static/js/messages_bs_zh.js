@@ -3,7 +3,7 @@
  * Locale: ZH (Chinese, 中文 (Zhōngwén), 汉语, 漢語)
  */
 jQuery.extend(jQuery.validator.messages, {
-        required: "必填字段",
+        required: "必选字段",
 		remote: "请修正该字段",
 		email: "请输入正确格式的电子邮件",
 		url: "请输入合法的网址",
@@ -19,25 +19,13 @@ jQuery.extend(jQuery.validator.messages, {
 		rangelength: jQuery.validator.format("请输入一个长度介于 {0} 和 {1} 之间的字符串"),
 		range: jQuery.validator.format("请输入一个介于 {0} 和 {1} 之间的值"),
 		max: jQuery.validator.format("请输入一个最大为 {0} 的值"),
-		min: jQuery.validator.format("请输入一个最小为 {0} 的值")
+		min: jQuery.validator.format("请输入一个最小为 {0} 的值"),
+	    isMobile:"请输入合法的手机号",
+	    isCardCode:"请输入合法的身份证号"
 });
 
 jQuery.extend(jQuery.validator.defaults, {
-    errorElement: "span", 
-    errorClass:"help-inline",
-    highlight : function (e) {
-		$(e).removeClass('info').addClass('error');
-	},
-	unhighlight : function (e) {
-		$(e).removeClass('error');
-	},
-	errorPlacement: function (error, element) {
-		if($(element).is("select")){
-			error.appendTo($(element).parent());
-		}else{
-			error.insertAfter(element);
-		}
-	}
+    errorElement: "span"
 });
 
 //手机验证
@@ -45,10 +33,9 @@ jQuery.validator.addMethod("isMobile", function(value, element) {
    	var length = value.length;   
    	var mobile =  /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;   
    	return this.optional(element) || (length == 11 && mobile.test(value));       
-}, "请输入正确的手机号");
-
+}, jQuery.validator.messages.isMobile);  
 //身份证验证
-jQuery.validator.addMethod("isCarCode", function(value, element) {   
+jQuery.validator.addMethod("isCardCode", function(value, element) {   
     value = value.toUpperCase();
 	//身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X。  
 	if (!(/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(value))){
@@ -93,12 +80,8 @@ jQuery.validator.addMethod("isCarCode", function(value, element) {
 		var bGoodDay;
 		bGoodDay = (dtmBirth.getFullYear() == Number(arrSplit[2])) && ((dtmBirth.getMonth() + 1) == Number(arrSplit[3])) && (dtmBirth.getDate() == Number(arrSplit[4]));
 		if (!bGoodDay){
-			//alert(dtmBirth.getYear());
-			//alert(arrSplit[2]);
-			//alert('输入的身份证号里出生日期不对！');
 			return this.optional(element) || false;
 	   }else{
-
 			//检验18位身份证的校验码是否正确。
 			//校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
 			var valnum;
@@ -109,8 +92,6 @@ jQuery.validator.addMethod("isCarCode", function(value, element) {
 				nTemp += value.substr(i, 1) * arrInt[i];
 			}
 			valnum = arrCh[nTemp % 11];
-			//alert(value+"  "+ valnum);
-			
 			if (valnum != value.substr(17, 1)){
 			//alert('18位身份证的校验码不正确！应该为：' + valnum);
 			return this.optional(element) || false;
@@ -118,4 +99,4 @@ jQuery.validator.addMethod("isCarCode", function(value, element) {
 			return this.optional(element) || true;
 		}
 	}		
-	}, "请正确填写身份证号码"); 
+	},jQuery.validator.messages.isCardCode); 

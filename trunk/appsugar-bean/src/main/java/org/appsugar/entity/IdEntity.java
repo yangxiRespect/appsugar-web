@@ -47,7 +47,7 @@ public abstract class IdEntity {
 		this.id = id;
 	}
 
-	@Column(name = "updated_at")
+	@Column(name = "created_at")
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -56,7 +56,7 @@ public abstract class IdEntity {
 		this.createdAt = createdAt;
 	}
 
-	@Column(name = "created_at")
+	@Column(name = "updated_at")
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}

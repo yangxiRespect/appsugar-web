@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.appsugar.entity.IdEntity;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 角色
@@ -27,8 +28,10 @@ public class Role extends IdEntity {
 	public static final String _userList = "userList";
 
 	//角色名
+	@NotBlank
 	private String name;
 	//角色标题
+	@NotBlank
 	private String title;
 	//角色权限
 	private List<String> permissionList;
@@ -64,7 +67,7 @@ public class Role extends IdEntity {
 	}
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "as_role_permission", joinColumns = @JoinColumn(name = "role_id") )
+	@CollectionTable(name = "as_role_permission", joinColumns = @JoinColumn(name = "role_id"))
 	@Column(name = "permission")
 	public List<String> getPermissionList() {
 		return permissionList;

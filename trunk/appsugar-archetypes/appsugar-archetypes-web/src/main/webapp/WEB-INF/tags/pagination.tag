@@ -19,13 +19,13 @@ request.setAttribute("end", end);
 		var sortType = '${sortType}';
 		var originalForm = document.forms[0];
 		var form = $(originalForm);
-		addParameterToForm(form,"pageParam","page",page - 1);
+		addParameterToForm(form,"pageParam","pageNum",page - 1);
 		addParameterToForm(form,"pageSizeParam","pageSize",pageSize);
 		addParameterToForm(form,"sortParam","sortType",sortType);
 		form.submit();
 	}
 </script>
-<nav>
+<nav style="float: right;padding-top: 0px;margin-top: 0px;">
 	<ul  class="pagination">
 		 <% if (page.hasPrevious()){%>
                	<li><a href="javascript:jumpToPage(1,${size})" >&lt;&lt;</a></li>

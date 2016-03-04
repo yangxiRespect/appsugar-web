@@ -12,3 +12,10 @@ function addParameterToForm(form,id,name,value){
 		$("#"+id).val(value);
 	}
 }
+
+/**
+ * form验证
+ */
+$(document).ready(function(){
+	$(".validator").validate({onfocusout: function(element) {$(element).valid();},focusCleanup: true});
+});
