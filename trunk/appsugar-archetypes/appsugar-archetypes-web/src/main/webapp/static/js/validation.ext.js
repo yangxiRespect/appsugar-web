@@ -1,3 +1,11 @@
+
+/**
+ * form验证
+ */
+$(document).ready(function(){
+	$(".validator").validate({onfocusout: function(element) {$(element).valid();},focusCleanup: true});
+});
+
 jQuery.extend(jQuery.validator.defaults, {
     errorElement: "span",
 	errorClass:"help-inline"

@@ -17,7 +17,7 @@
 	menuGroupList = new ArrayList<MenuGroup>();
 	application.setAttribute(MENU_GROUP_KEY, menuGroupList);
 	//系统管理组
-	MenuGroup menuGroup = new MenuGroup("SystemMenu","系统管理","meun.system");
+	MenuGroup menuGroup = new MenuGroup("SystemMenu","系统管理","menu.system");
 	menuGroupList.add(menuGroup);
 	//用户管理
 	menuGroup.addChild(new MenuConfig("/account/user","用户管理","menu.user",null,"user:view"));

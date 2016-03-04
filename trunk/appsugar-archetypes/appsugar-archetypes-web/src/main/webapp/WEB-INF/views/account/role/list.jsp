@@ -29,12 +29,6 @@
 				</button>
 			</form>
 		</div>
-	<c:if test="${not empty message}">
-		<div id="message" class="alert alert-success">
-			<button data-dismiss="alert" class="close">×</button>
-			${message}
-		</div>
-	</c:if>
 	<table class="table">
 		<thead>
 			<tr>
@@ -60,6 +54,12 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<c:if test="${not empty message}">
+		<div id="message" class="alert alert-success">
+			<button data-dismiss="alert" class="close">×</button>
+			${message}
+		</div>
+	</c:if>
 	<tags:pagination page="${page}" />
 </body>
 
