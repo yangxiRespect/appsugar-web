@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.appsugar.archetypes</groupId>
 	<artifactId>appsugar-archetypes</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>appsugar-archetypes</name> 
 	<url>http://maven.apache.org</url>
 	<packaging>pom</packaging>
@@ -23,7 +23,7 @@
 		<downloadSources>true</downloadSources>
 		<downloadJavadocs>true</downloadJavadocs>
 		<junit.version>4.12</junit.version>
-		<appsugar.version>1.0.0</appsugar.version>
+		<appsugar.version>1.0.0-SNAPSHOT</appsugar.version>
 		<mockito.version>2.0.2-beta</mockito.version>
 		
 		<spring.version>4.1.9.RELEASE</spring.version>
@@ -41,6 +41,20 @@
 		<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 	</properties>
 	
+ <distributionManagement>
+    <repository>
+      <id>appsugar-releases</id>
+	  <name>appsugar repositoy</name>
+	  <url>http://192.168.1.9:8081/nexus/content/repositories/releases</url>
+    </repository>
+	<snapshotRepository>
+			<id>appsugar-snapshots</id>
+			<name>appsugar repository</name>
+			<uniqueVersion>true</uniqueVersion>
+			<url>http://192.168.1.9:8081/nexus/content/repositories/snapshots</url>
+	</snapshotRepository>
+  </distributionManagement>
+  
 	<dependencyManagement>
 		<dependencies>
 			<!--internal  dependency-->
