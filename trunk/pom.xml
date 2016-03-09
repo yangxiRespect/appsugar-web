@@ -85,6 +85,8 @@
 				<configuration>
 				  <tagNameFormat>v@{project.version}</tagNameFormat>
 				  <autoVersionSubmodules>true</autoVersionSubmodules>
+				  <username>${git.username}</username>
+				  <password>${git.password}</password>
 				</configuration>
 		   </plugin>
 		</plugins>
