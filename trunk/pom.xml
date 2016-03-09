@@ -65,26 +65,17 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
-		   <!--maven scm:tag-->
+		   <!--maven scm:tag     mvn deploy  scm:tag -->
 		   <plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-scm-plugin</artifactId>
-			 <dependencies>
-				<dependency>
-				   <groupId>org.codehaus.plexus</groupId>
-				   <artifactId>plexus-utils</artifactId>
-				   <version>2.1</version>
-				</dependency>
-				<dependency>
-				   <groupId>org.apache.maven.scm</groupId>
-				   <artifactId>maven-scm-provider-gitexe</artifactId>
-				   <version>1.2</version>
-			   </dependency>
-			 </dependencies>
-			<version>1.0</version>
+			<version>1.9.4</version>
 			<configuration>
 			  <tag>${project.version}</tag>
 			  <connectionType>connection</connectionType>
+			  <!--hiden username and password in setting.xml  properties-->
+			  <username>${git.username}</username>
+			  <password>${git.password}</password>
 			</configuration>
 		   </plugin>
 		</plugins>
