@@ -26,7 +26,7 @@
  <scm>
       <connection>scm:git:https://github.com/shenliuyang/appsugar-web.git</connection>
       <developerConnection>scm:git:https://github.com/shenliuyang/appsugar-web.git</developerConnection>
-   <tag>v1.2.1</tag>
+	  <tag>v1.2.1</tag>
   </scm>
 	
  <distributionManagement>
@@ -65,24 +65,13 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
-		   <!--maven scm:tag     mvn deploy  scm:tag -->
-		   <plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-scm-plugin</artifactId>
-			<version>1.9.4</version>
-			<configuration>
-			  <tag>${project.version}</tag>
-			  <connectionType>connection</connectionType>
-			  <!--hiden username and password in setting.xml  properties-->
-			  <username>${git.username}</username>
-			  <password>${git.password}</password>
-			</configuration>
-		   </plugin>
 		   <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.5.3</version>
 				<configuration>
+				  <!--run in quiet model  mvn -B release:prepare release:perform-->
+				  <!-- svn tagBase location<tagBase></tagBase>-->
 				  <tagNameFormat>v@{project.version}</tagNameFormat>
 				  <autoVersionSubmodules>true</autoVersionSubmodules>
 				  <username>${git.username}</username>
