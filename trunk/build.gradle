@@ -1,0 +1,72 @@
+
+
+//load properties from config file
+def loadGroovyConfig(p){
+		def configFile = file("environment.groovy")
+		def profile = System.getenv("profile")
+		new ConfigSlurper(p ? p : (profile ? profile : "test")).parse(configFile.toURL()).toProperties()
+}
+
+configure(subprojects) { project ->
+	apply plugin: "java"
+	apply plugin: 'maven-publish'
+	group = "org.appsugar"
+	version = "1.0.0-SNAPSHOT"
+	repositories {
+		mavenCentral()
+	}
+	// put default properties
+	loadGroovyConfig("base").each{ k, v -> ext.set(k,v) }
+	// put profile properties default is test
+	loadGroovyConfig(null).each{ k, v -> ext.set(k,v) }
+	
+	ext{
+		jpaVersion = "1.0.0.Final"
+		springDataJpaVersion = "1.10.1.RELEASE"
+		slf4jVersion = "1.7.21"
+		commonsLangVersion = "3.4"
+		commonsCollectionsVersion = "4.1"
+		guavaVersion = "19.0"
+	}
+	compileJava.options.encoding = ext["encoding"];
+	compileTestJava.options.encoding = ext["encoding"];
+	
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				from components.java
+			}
+		}
+		repositories {
+				maven {
+					mavenLocal()
+				}
+		}
+	}
+
+}
+
+	
+
+project(":appsugar-bean"){
+	dependencies{
+		compile ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
+	}
+}
+
+project(":appsugar-data"){
+	dependencies{
+		compile project(":appsugar-bean")
+		compile("org.springframework.data:spring-data-jpa:${springDataJpaVersion}")
+		compile("org.slf4j:slf4j-log4j12:${slf4jVersion}")
+		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
+		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
+		compile("com.google.guava:guava:${guavaVersion}")
+	}
+}
+
+project(":appsugar-service"){
+	dependencies{
+		compile project(":appsugar-data")
+	}
+}
