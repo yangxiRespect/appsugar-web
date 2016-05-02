@@ -23,8 +23,8 @@ import org.springframework.data.jpa.domain.Specification;
  * @param <T>
  * @param <C>
  */
-public abstract class IdEntitySpecification<T extends IdEntity, C extends IdEntityCondition>
-		implements Specification<T> {
+public class IdEntitySpecification<T extends IdEntity, C extends IdEntityCondition>
+		implements Specification<T>, Cloneable {
 
 	private C conditionObject;
 
@@ -53,6 +53,18 @@ public abstract class IdEntitySpecification<T extends IdEntity, C extends IdEnti
 		Date createdEnd = condition.getCreatedEnd();
 		if (createdEnd != null) {
 			query.add(cb.lessThan(createdAtExpression, createdEnd));
+		}
+	}
+
+	public IdEntitySpecification<T, C> clone(C condition) {
+		try {
+			@SuppressWarnings("unchecked")
+			IdEntitySpecification<T, C> copy = (IdEntitySpecification<T, C>) clone();
+			copy.conditionObject = condition;
+			return copy;
+		} catch (CloneNotSupportedException e) {
+			//ugly design
+			return null;
 		}
 	}
 }

@@ -2,15 +2,18 @@ package org.appsugar.service.impl;
 
 import java.util.List;
 
+import org.appsugar.condition.IdEntityCondition;
 import org.appsugar.entity.IdEntity;
 import org.appsugar.repository.IdEntityRepository;
 import org.appsugar.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-public class GenericServiceImpl<T extends IdEntity> implements GenericService<T> {
+public class GenericServiceImpl<T extends IdEntity, C extends IdEntityCondition> implements GenericService<T, C> {
 
 	@Autowired
-	protected IdEntityRepository<T> repository;
+	protected IdEntityRepository<T, C> repository;
 
 	@Override
 	public T get(Long id) {
@@ -45,6 +48,16 @@ public class GenericServiceImpl<T extends IdEntity> implements GenericService<T>
 	@Override
 	public void remove(Iterable<T> entities) {
 		repository.delete(entities);
+	}
+
+	@Override
+	public Page<T> getByCondition(C condition, Pageable pageable) {
+		return repository.findAll(condition, pageable);
+	}
+
+	@Override
+	public List<T> getByCondition(C condition) {
+		return repository.findAll(condition);
 	}
 
 }
