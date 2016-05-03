@@ -1,6 +1,9 @@
 package org.appsugar.repository;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
 
 import org.appsugar.specification.IdEntitySpecification;
 import org.slf4j.Logger;
@@ -44,16 +47,23 @@ public class RepositoryPostProcessor implements BeanPostProcessor, Ordered {
 				Class<?>[] classes = GenericTypeResolver.resolveTypeArguments(repositoryInterface,
 						IdEntityRepository.class);
 				IdEntityRepositoryImpl target = (IdEntityRepositoryImpl) advised.getTargetSource().getTarget();
-				context.getBeansOfType(IdEntitySpecification.class).entrySet().stream()
-						.filter(entry -> Arrays.equals(classes, GenericTypeResolver
-								.resolveTypeArguments(entry.getValue().getClass(), IdEntitySpecification.class)))
-						.forEach(entry -> {
-							target.specification = entry.getValue();
-						});
-				if (target.specification == null) {
+				List<IdEntitySpecification> matchedSpecifictionList = new LinkedList<>();
+				for (Entry<String, IdEntitySpecification> entry : context.getBeansOfType(IdEntitySpecification.class)
+						.entrySet()) {
+					if (Arrays.equals(classes, GenericTypeResolver.resolveTypeArguments(entry.getValue().getClass(),
+							IdEntitySpecification.class))) {
+						matchedSpecifictionList.add(entry.getValue());
+					}
+				}
+				if (matchedSpecifictionList.size() > 1) {
+					throw new BeanCreationException("More than one specification to be found by condition " + classes[1]
+							+ " repository name " + beanName + " matched " + matchedSpecifictionList);
+				}
+				if (matchedSpecifictionList.size() == 0) {
 					throw new BeanCreationException(
 							"No specification to be found by condition " + classes[1] + " repository name " + beanName);
 				}
+				target.specification = matchedSpecifictionList.get(0);
 			} catch (BeansException e) {
 				throw e;
 			} catch (Exception e) {
