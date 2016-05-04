@@ -59,8 +59,8 @@ configure(subprojects) { project ->
 	release {
     	failOnCommitNeeded = false
     	git {
-	        requireBranch = 'master'
-	        pushToRemote = 'master'
+	        requireBranch = "master"
+	        pushToRemote = "https://github.com/shenliuyang/appsugar-web.git"
     	}
     }
 	afterReleaseBuild.dependsOn uploadArchives
