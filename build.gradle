@@ -1,14 +1,3 @@
-buildscript {	
-		repositories {
-			mavenCentral()
-			mavenLocal()
-			jcenter()
-		}
-		dependencies {
-			classpath 'net.researchgate:gradle-release:2.3.4'
-		}
-		
-}
 
 //load properties from config file
 def loadGroovyConfig(p){
@@ -17,12 +6,12 @@ def loadGroovyConfig(p){
 		new ConfigSlurper(p ? p : (profile ? profile : "test")).parse(configFile.toURL()).toProperties()
 }
 
+
 configure(subprojects) { project ->
 	apply plugin: "java"
 	apply plugin: "maven"
-	apply plugin: "net.researchgate.release"
 	group = "org.appsugar"
-	version = "1.0.0-SNAPSHOT"
+	
 	repositories {
 		mavenCentral()
 	}
@@ -55,14 +44,6 @@ configure(subprojects) { project ->
 	    }
 	}
 	
-	//release plugin config
-	release {
-    	failOnCommitNeeded = false
-    	git {
-	        requireBranch = "master"
-    	}
-    }
-	afterReleaseBuild.dependsOn uploadArchives
 }
 
 	
