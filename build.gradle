@@ -19,7 +19,6 @@ configure(subprojects) { project ->
 	apply plugin: "java"
 	apply plugin: "maven"
 	apply plugin: 'net.researchgate.release'
-	group = "org.appsugar"
 	
 	repositories {
 		mavenCentral()
@@ -54,13 +53,13 @@ configure(subprojects) { project ->
 	}
 	
 	release {
-		failOnCommitNeeded  = false
 		versionPropertyFile = "../gradle.properties"
-		scmAdapters = [
-	        net.researchgate.release.GitAdapter,
-    	]
-		
 	}
+	
+	afterReleaseBuild.dependsOn uploadArchives
+	
+	//jenkins build 
+	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
 }
 
 	
