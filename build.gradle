@@ -1,4 +1,14 @@
-
+buildscript {	
+		repositories {
+			mavenCentral()
+			mavenLocal()
+			jcenter()
+		}
+		dependencies {
+			classpath 'net.researchgate:gradle-release:2.3.4'
+		}
+		
+}
 
 //load properties from config file
 def loadGroovyConfig(p){
@@ -9,7 +19,8 @@ def loadGroovyConfig(p){
 
 configure(subprojects) { project ->
 	apply plugin: "java"
-	apply plugin: 'maven-publish'
+	apply plugin: "maven"
+	apply plugin: "net.researchgate.release"
 	group = "org.appsugar"
 	version = "1.0.0-SNAPSHOT"
 	repositories {
@@ -28,22 +39,31 @@ configure(subprojects) { project ->
 		commonsCollectionsVersion = "4.1"
 		guavaVersion = "19.0"
 	}
-	compileJava.options.encoding = ext["encoding"];
-	compileTestJava.options.encoding = ext["encoding"];
-	
-	publishing {
-		publications {
-			mavenJava(MavenPublication) {
-				from components.java
-			}
-		}
-		repositories {
-				maven {
-					mavenLocal()
-				}
-		}
+	compileJava.options.encoding = ext["encoding"]
+	compileTestJava.options.encoding = ext["encoding"]
+	//deploy to maven nexus
+	uploadArchives {
+	    repositories {
+	       mavenDeployer {
+             repository(url: "http://nexus.ggxueche.cn/nexus/content/repositories/releases") {
+            	 authentication(userName: "${nexusUserName}", password: "${nexusPassword}")
+			 }
+			 snapshotRepository(url: "http://nexus.ggxueche.cn/nexus/content/repositories/snapshots") {
+                 authentication(userName: "${nexusUserName}", password: "${nexusPassword}")  
+             }  
+	       }
+	    }
 	}
-
+	
+	//release plugin config
+	release {
+    	failOnCommitNeeded = false
+    	git {
+	        requireBranch = 'master'
+	        pushToRemote = 'master'
+    	}
+    }
+	afterReleaseBuild.dependsOn uploadArchives
 }
 
 	
