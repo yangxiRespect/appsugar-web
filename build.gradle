@@ -1,3 +1,11 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'net.researchgate:gradle-release:2.3.4'
+	}
+}
 
 //load properties from config file
 def loadGroovyConfig(p){
@@ -10,6 +18,7 @@ def loadGroovyConfig(p){
 configure(subprojects) { project ->
 	apply plugin: "java"
 	apply plugin: "maven"
+	apply plugin: 'net.researchgate.release'
 	group = "org.appsugar"
 	
 	repositories {
@@ -44,6 +53,14 @@ configure(subprojects) { project ->
 	    }
 	}
 	
+	release {
+		failOnCommitNeeded  = false
+		versionPropertyFile = "../gradle.properties"
+		scmAdapters = [
+	        net.researchgate.release.GitAdapter,
+    	]
+		
+	}
 }
 
 	
