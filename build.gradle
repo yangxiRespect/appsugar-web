@@ -60,7 +60,6 @@ configure(subprojects) { project ->
     	failOnCommitNeeded = false
     	git {
 	        requireBranch = "master"
-	        pushToRemote = "master"
     	}
     }
 	afterReleaseBuild.dependsOn uploadArchives
