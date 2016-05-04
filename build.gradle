@@ -58,7 +58,7 @@ configure(subprojects) { project ->
 	
 	afterReleaseBuild.dependsOn uploadArchives
 	
-	//jenkins build 
+	//jenkins build , git clone must use ssh instead https
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
 }
 
