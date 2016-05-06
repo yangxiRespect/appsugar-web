@@ -3,12 +3,12 @@ package org.appsugar.service.impl;
 import java.util.List;
 
 import org.appsugar.condition.IdEntityCondition;
+import org.appsugar.dto.page.Page;
+import org.appsugar.dto.page.Pageable;
 import org.appsugar.entity.IdEntity;
 import org.appsugar.repository.IdEntityRepository;
 import org.appsugar.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public class GenericServiceImpl<T extends IdEntity, C extends IdEntityCondition> implements GenericService<T, C> {
 

@@ -1,5 +1,6 @@
 package org.appsugar.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,7 +15,8 @@ import javax.persistence.MappedSuperclass;
  * 2016年1月28日下午5:37:02
  */
 @MappedSuperclass
-public abstract class IdEntity {
+public abstract class IdEntity implements Serializable {
+	private static final long serialVersionUID = -608692408189530550L;
 	public static final String _id = "id";
 	public static final String _createdAt = "createdAt";
 	public static final String _updatedAt = "updatedAt";

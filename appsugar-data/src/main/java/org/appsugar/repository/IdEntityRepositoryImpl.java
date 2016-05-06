@@ -6,10 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.appsugar.condition.IdEntityCondition;
+import org.appsugar.dto.page.Page;
+import org.appsugar.dto.page.Pageable;
 import org.appsugar.entity.IdEntity;
 import org.appsugar.specification.IdEntitySpecification;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -45,7 +45,7 @@ public class IdEntityRepositoryImpl<T extends IdEntity, C extends IdEntityCondit
 
 	@Override
 	public Page<T> findAll(C condition, Pageable pageable) {
-		return findAll(specification.clone(condition), pageable);
+		return PageUtils.toPage(findAll(specification.clone(condition), PageUtils.toPageable(pageable)), pageable);
 	}
 
 	@Override

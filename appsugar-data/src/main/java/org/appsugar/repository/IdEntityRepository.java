@@ -3,9 +3,9 @@ package org.appsugar.repository;
 import java.util.List;
 
 import org.appsugar.condition.IdEntityCondition;
+import org.appsugar.dto.page.Page;
+import org.appsugar.dto.page.Pageable;
 import org.appsugar.entity.IdEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
