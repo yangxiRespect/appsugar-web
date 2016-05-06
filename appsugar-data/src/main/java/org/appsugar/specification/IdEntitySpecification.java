@@ -33,6 +33,10 @@ public class IdEntitySpecification<T extends IdEntity, C extends IdEntityConditi
 		this.conditionObject = conditionObject;
 	}
 
+	public IdEntitySpecification() {
+		super();
+	}
+
 	@Override
 	public final Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 		SpecificationQueryWrapper<T> spe = new SpecificationQueryWrapper<>(query, cb, root);
