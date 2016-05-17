@@ -19,7 +19,8 @@ plugins {
     id 'net.researchgate.release' version '2.3.5'
 }
 apply plugin: 'java'
-afterReleaseBuild.dependsOn uploadArchives
+
+
 
 configure(subprojects) { project ->
 	apply plugin: "java"
@@ -56,14 +57,16 @@ configure(subprojects) { project ->
 	       }
 	    }
 	}
-	
-
 	//install to maven local
 	build.dependsOn install
 	//jenkins build 
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
 }
 
+
+subprojects.each { p ->
+   afterReleaseBuild.dependsOn p.tasks.uploadArchives
+}
 	
 
 project(":appsugar-bean"){
