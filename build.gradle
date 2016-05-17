@@ -14,11 +14,16 @@ def loadGroovyConfig(p){
 		new ConfigSlurper(p ? p : (profile ? profile : "test")).parse(configFile.toURL()).toProperties()
 }
 
+plugins {
+    id 'idea'
+    id 'net.researchgate.release' version '2.3.5'
+}
+apply plugin: 'java'
+afterReleaseBuild.dependsOn uploadArchives
 
 configure(subprojects) { project ->
 	apply plugin: "java"
 	apply plugin: "maven"
-	apply plugin: 'net.researchgate.release'
 	
 	repositories {
 		mavenCentral()
@@ -52,15 +57,10 @@ configure(subprojects) { project ->
 	    }
 	}
 	
-	release {
-		versionPropertyFile = "../gradle.properties"
-	}
-	
-	afterReleaseBuild.dependsOn uploadArchives
-	
+
 	//install to maven local
 	build.dependsOn install
-	//jenkins build , git clone must use ssh instead https
+	//jenkins build 
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
 }
 
