@@ -1,25 +1,20 @@
 buildscript {
 	repositories {
 		mavenCentral()
-	}
-	dependencies {
-		classpath 'net.researchgate:gradle-release:2.3.4'
+		jcenter()
 	}
 }
+plugins {
+	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
+    id 'net.researchgate.release' version '2.3.5'
+}
+apply plugin: 'java'
 
-//load properties from config file
 def loadGroovyConfig(p){
 		def configFile = file("environment.groovy")
 		def profile = System.getenv("profile")
 		new ConfigSlurper(p ? p : (profile ? profile : "test")).parse(configFile.toURL()).toProperties()
 }
-
-plugins {
-    id 'idea'
-    id 'net.researchgate.release' version '2.3.5'
-}
-apply plugin: 'java'
-
 
 
 configure(subprojects) { project ->
@@ -57,15 +52,8 @@ configure(subprojects) { project ->
 	       }
 	    }
 	}
-	//install to maven local
 	build.dependsOn install
-	//jenkins build 
-	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
-}
-
-
-subprojects.each { p ->
-   afterReleaseBuild.dependsOn p.tasks.uploadArchives
+	rootProject.tasks.afterReleaseBuild.dependsOn uploadArchives
 }
 	
 
