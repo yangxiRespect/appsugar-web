@@ -1,6 +1,5 @@
 package org.appsugar.repository;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -50,8 +49,8 @@ public class RepositoryPostProcessor implements BeanPostProcessor, Ordered {
 				List<IdEntitySpecification> matchedSpecifictionList = new LinkedList<>();
 				for (Entry<String, IdEntitySpecification> entry : context.getBeansOfType(IdEntitySpecification.class)
 						.entrySet()) {
-					if (Arrays.equals(classes, GenericTypeResolver.resolveTypeArguments(entry.getValue().getClass(),
-							IdEntitySpecification.class))) {
+					if (classes[1] == GenericTypeResolver.resolveTypeArguments(entry.getValue().getClass(),
+							IdEntitySpecification.class)[1]) {
 						matchedSpecifictionList.add(entry.getValue());
 					}
 				}
