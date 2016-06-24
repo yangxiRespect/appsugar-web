@@ -3,8 +3,8 @@ package org.appsugar.service.impl;
 import java.util.List;
 
 import org.appsugar.condition.IdEntityCondition;
-import org.appsugar.dto.page.Page;
-import org.appsugar.dto.page.Pageable;
+import org.appsugar.domain.Page;
+import org.appsugar.domain.Pageable;
 import org.appsugar.entity.IdEntity;
 import org.appsugar.repository.IdEntityRepository;
 import org.appsugar.service.GenericService;

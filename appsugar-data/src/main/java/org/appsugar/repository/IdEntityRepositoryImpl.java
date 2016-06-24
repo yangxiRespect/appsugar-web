@@ -6,8 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.appsugar.condition.IdEntityCondition;
-import org.appsugar.dto.page.Page;
-import org.appsugar.dto.page.Pageable;
+import org.appsugar.domain.Page;
+import org.appsugar.domain.Pageable;
 import org.appsugar.entity.IdEntity;
 import org.appsugar.specification.IdEntitySpecification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;

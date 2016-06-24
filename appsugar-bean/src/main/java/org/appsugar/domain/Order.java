@@ -1,8 +1,8 @@
-package org.appsugar.dto.page;
+package org.appsugar.domain;
 
 import java.io.Serializable;
 
-import org.appsugar.dto.page.Sort.Direction;
+import org.appsugar.domain.Sort.Direction;
 
 public class Order implements Serializable {
 

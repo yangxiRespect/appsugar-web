@@ -1,4 +1,4 @@
-package org.appsugar.dto.page;
+package org.appsugar.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;

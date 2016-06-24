@@ -1,4 +1,4 @@
-package org.appsugar.dto.page;
+package org.appsugar.domain;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  * @author NewYoung
  * 2016年5月6日下午3:41:54
  */
-public class Page<T extends Serializable> implements Serializable {
+public class Page<T> implements Serializable {
 
 	private static final long serialVersionUID = 1741187794637422865L;
 

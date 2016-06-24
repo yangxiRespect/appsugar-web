@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.appsugar.dto.page.Page;
-import org.appsugar.dto.page.Pageable;
+import org.appsugar.domain.Page;
+import org.appsugar.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -17,13 +17,13 @@ public class PageUtils {
 		return new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), toSort(pageable.getSort()));
 	}
 
-	public static Sort toSort(org.appsugar.dto.page.Sort sort) {
+	public static Sort toSort(org.appsugar.domain.Sort sort) {
 		if (sort == null) {
 			return null;
 		}
 		List<Order> orderList = new ArrayList<>(sort.getOrderList().size());
-		for (org.appsugar.dto.page.Order order : sort.getOrderList()) {
-			Direction direction = order.getDirection() == org.appsugar.dto.page.Sort.ASC_DIRECTION ? Direction.ASC
+		for (org.appsugar.domain.Order order : sort.getOrderList()) {
+			Direction direction = order.getDirection() == org.appsugar.domain.Sort.ASC_DIRECTION ? Direction.ASC
 					: Direction.DESC;
 			orderList.add(new Order(direction, order.getPropertity()));
 		}
