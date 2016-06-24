@@ -29,9 +29,7 @@ public class IdEntityRepositoryImpl<T extends IdEntity, C extends IdEntityCondit
 
 	@Override
 	public <S extends T> S save(S entity) {
-		if (entity instanceof IdEntity) {
-			beforeSave(entity);
-		}
+		beforeSave(entity);
 		return super.save(entity);
 	}
 
