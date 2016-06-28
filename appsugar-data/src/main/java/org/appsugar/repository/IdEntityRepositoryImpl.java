@@ -1,6 +1,5 @@
 package org.appsugar.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,20 +24,6 @@ public class IdEntityRepositoryImpl<T extends IdEntity, C extends IdEntityCondit
 
 	public IdEntityRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
 		super(entityInformation, entityManager);
-	}
-
-	@Override
-	public <S extends T> S save(S entity) {
-		beforeSave(entity);
-		return super.save(entity);
-	}
-
-	protected void beforeSave(IdEntity entity) {
-		Date date = new Date();
-		if (entity.getId() == null) {
-			entity.setCreatedAt(date);
-		}
-		entity.setUpdatedAt(date);
 	}
 
 	@Override

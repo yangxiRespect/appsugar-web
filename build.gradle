@@ -55,18 +55,10 @@ configure(subprojects) { project ->
 	build.dependsOn install
 	rootProject.tasks.afterReleaseBuild.dependsOn uploadArchives
 }
-	
-
-project(":appsugar-bean"){
-	dependencies{
-		compile ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
-	}
-	
-} 
 
 project(":appsugar-data"){
 	dependencies{
-		compile project(":appsugar-bean")
+		compile ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
 		compile("org.springframework.data:spring-data-jpa:${springDataJpaVersion}") 
 		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
 		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
