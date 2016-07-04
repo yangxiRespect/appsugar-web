@@ -56,10 +56,24 @@ configure(subprojects) { project ->
 	rootProject.tasks.afterReleaseBuild.dependsOn uploadArchives
 }
 
-project(":appsugar-data"){
+project(":appsugar-bean"){
 	dependencies{
-		compile ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
-		compile("org.springframework.data:spring-data-jpa:${springDataJpaVersion}") 
+		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
+		compileOnly ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
+	}
+}
+
+project(":appsugar-data-common"){
+	dependencies{
+		compile project(":appsugar-bean")
+		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
+	}
+}
+project(":appsugar-data-jpa"){
+	dependencies{
+		compile project(":appsugar-data-common")
+		compile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
+		compile("org.springframework.data:spring-data-jpa:${springDataJpaVersion}")
 		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
 		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
 		compile("com.google.guava:guava:${guavaVersion}")
@@ -68,6 +82,6 @@ project(":appsugar-data"){
 
 project(":appsugar-service"){
 	dependencies{
-		compile project(":appsugar-data")
+		compile project(":appsugar-data-jpa")
 	}
 }

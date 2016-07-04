@@ -2,10 +2,10 @@ package org.appsugar.service;
 
 import java.util.List;
 
-import org.appsugar.condition.IdEntityCondition;
-import org.appsugar.domain.Page;
-import org.appsugar.domain.Pageable;
-import org.appsugar.entity.IdEntity;
+import org.appsugar.bean.condition.LongIdEntityCondition;
+import org.appsugar.bean.domain.Page;
+import org.appsugar.bean.domain.Pageable;
+import org.appsugar.bean.entity.LongIdEntity;
 
 /**
  * 
@@ -13,7 +13,7 @@ import org.appsugar.entity.IdEntity;
  * 2016年2月25日下午6:24:48
  * @param <T>
  */
-public interface GenericService<T extends IdEntity, C extends IdEntityCondition> {
+public interface GenericService<T extends LongIdEntity, C extends LongIdEntityCondition> {
 
 	/**
 	 * 根据id获取
