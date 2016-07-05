@@ -12,11 +12,15 @@ public class Page<T> implements Serializable {
 
 	private static final long serialVersionUID = 1741187794637422865L;
 
-	private final List<T> content;
+	private List<T> content;
 
-	private final Pageable pageable;
+	private Pageable pageable;
 
-	private final int total;
+	private int total;
+
+	public Page() {
+		super();
+	}
 
 	public Page(List<T> content, Pageable pageable, int total) {
 		super();

@@ -29,6 +29,10 @@ public class Sort implements Serializable {
 		orderList.addAll(Arrays.asList(orders));
 	}
 
+	public Sort() {
+		super();
+	}
+
 	public List<Order> getOrderList() {
 		return orderList;
 	}
