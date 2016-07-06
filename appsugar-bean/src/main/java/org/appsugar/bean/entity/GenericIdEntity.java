@@ -24,12 +24,10 @@ public abstract class GenericIdEntity<ID extends Serializable> implements Serial
 	//唯一id
 	protected ID id;
 	//数据创建时间
-	@CreatedDate
-	@Column(name = "created_at")
+
 	protected Date createdAt;
 	//数据修改时间
-	@LastModifiedDate
-	@Column(name = "updated_at")
+
 	protected Date updatedAt;
 
 	/**
@@ -39,6 +37,8 @@ public abstract class GenericIdEntity<ID extends Serializable> implements Serial
 		return id;
 	}
 
+	@CreatedDate
+	@Column(name = "created_at")
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -47,6 +47,8 @@ public abstract class GenericIdEntity<ID extends Serializable> implements Serial
 		this.createdAt = createdAt;
 	}
 
+	@LastModifiedDate
+	@Column(name = "updated_at")
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
