@@ -3,6 +3,7 @@ package org.appsugar.bean.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -24,9 +25,11 @@ public abstract class GenericIdEntity<ID extends Serializable> implements Serial
 	protected ID id;
 	//数据创建时间
 	@CreatedDate
+	@Column(name = "created_at")
 	protected Date createdAt;
 	//数据修改时间
 	@LastModifiedDate
+	@Column(name = "updated_at")
 	protected Date updatedAt;
 
 	/**
