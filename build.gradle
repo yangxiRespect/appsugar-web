@@ -30,15 +30,21 @@ configure(subprojects) { project ->
 	loadGroovyConfig(null).each{ k, v -> ext.set(k,v) }
 	
 	ext{
+		junitVersion = "4.12"
 		jpaVersion = "1.0.0.Final"
 		springDataJpaVersion = "1.10.2.RELEASE"
 		slf4jVersion = "1.7.21"
 		commonsLangVersion = "3.4"
 		commonsCollectionsVersion = "4.1"
 		guavaVersion = "19.0"
+		disruptorVersion = "3.3.4"
 	}
 	compileJava.options.encoding = ext["encoding"]
 	compileTestJava.options.encoding = ext["encoding"]
+	
+	dependencies{
+		testCompile ("junit:junit:${junitVersion}")
+	}
 	//deploy to maven nexus
 	uploadArchives {
 	    repositories {
@@ -60,6 +66,12 @@ project(":appsugar-bean"){
 	dependencies{
 		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
 		compileOnly ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
+	}
+}
+
+project(":appsugar-commons"){
+	dependencies{
+		compile ("com.lmax:disruptor:${disruptorVersion}")
 	}
 }
 
