@@ -33,6 +33,10 @@ public class Page<T> implements Serializable {
 		return content;
 	}
 
+	public void setContent(List<T> content) {
+		this.content = content;
+	}
+
 	public Pageable getPageable() {
 		return pageable;
 	}
@@ -74,6 +78,14 @@ public class Page<T> implements Serializable {
 	 */
 	public boolean hasNext() {
 		return getPageNumber() + 1 < getTotalPage();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Page [content=").append(content).append(", pageable=").append(pageable).append(", total=")
+				.append(total).append("]");
+		return builder.toString();
 	}
 
 }
