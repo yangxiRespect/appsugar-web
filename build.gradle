@@ -81,6 +81,7 @@ project(":appsugar-bean"){
 project(":appsugar-commons"){
 	dependencies{
 		compile ("com.lmax:disruptor:${disruptorVersion}")
+		compile("com.google.guava:guava:${guavaVersion}")
 	}
 }
 
