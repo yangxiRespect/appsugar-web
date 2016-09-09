@@ -2,6 +2,7 @@ package org.appsugar.commons.index;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 import com.google.common.base.Preconditions;
@@ -59,6 +60,9 @@ public class MapUniqueIndex<K, V> implements Index<K, V>, UpdatableIndex<V> {
 	@Override
 	public void addSource(V bean) {
 		K key = keyBuilder.apply(bean);
+		if (Objects.isNull(key)) {
+			return;
+		}
 		V previous = data.putIfAbsent(key, bean);
 		Preconditions.checkState(previous == null,
 				"Key not unique in this index key is  %s bean is %s exist bean is %s", key, bean, previous);
@@ -69,7 +73,11 @@ public class MapUniqueIndex<K, V> implements Index<K, V>, UpdatableIndex<V> {
 	 */
 	@Override
 	public void deleteSource(V bean) {
-		data.remove(keyBuilder.apply(bean));
+		K key = keyBuilder.apply(bean);
+		if (Objects.isNull(key)) {
+			return;
+		}
+		data.remove(key);
 	}
 
 	/**

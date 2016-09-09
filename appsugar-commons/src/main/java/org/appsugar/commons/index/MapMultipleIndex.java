@@ -1,6 +1,7 @@
 package org.appsugar.commons.index;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.function.Function;
 
 import com.google.common.collect.HashMultimap;
@@ -58,7 +59,11 @@ public class MapMultipleIndex<K, V> implements Index<K, Collection<V>>, Updatabl
 	 */
 	@Override
 	public void addSource(V bean) {
-		data.put(keyBuilder.apply(bean), bean);
+		K key = keyBuilder.apply(bean);
+		if (Objects.isNull(key)) {
+			return;
+		}
+		data.put(key, bean);
 	}
 
 	/**
@@ -66,7 +71,11 @@ public class MapMultipleIndex<K, V> implements Index<K, Collection<V>>, Updatabl
 	 */
 	@Override
 	public void deleteSource(V bean) {
-		data.remove(keyBuilder.apply(bean), bean);
+		K key = keyBuilder.apply(bean);
+		if (Objects.isNull(key)) {
+			return;
+		}
+		data.remove(key, bean);
 	}
 
 	/**
