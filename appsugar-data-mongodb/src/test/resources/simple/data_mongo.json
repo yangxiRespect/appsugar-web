@@ -1,0 +1,11 @@
+[{
+	"className" : "org.appsugar.data.mongo.entity.Person",
+	"items":[
+		{"id":"-1","createdAt":"2015-08-05","updatedAt":"2015-08-06","firstname":"shen","lastname":"liuyang","address":{"city":"zhuhai","street":"xiangzhou"},
+			"pets":[{"name":"lushan","age":25}]
+		},
+		{"id":"-2","createdAt":"2015-08-05","updatedAt":"2015-08-06","firstname":"xiang","lastname":"lushan","address":{"city":"changsha","street":"yueluqu"},
+			"pets":[{"name":"dog","age":2}]
+		}
+	]
+}]

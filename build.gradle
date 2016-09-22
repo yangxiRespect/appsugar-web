@@ -3,6 +3,9 @@ buildscript {
 		mavenCentral()
 		jcenter()
 	}
+	dependencies {
+      classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.13.0'
+    }
 }
 plugins {
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
@@ -33,14 +36,19 @@ configure(subprojects) { project ->
 		junitVersion = "4.12"
 		jpaVersion = "1.0.0.Final"
 		springDataJpaVersion = "1.10.2.RELEASE"
+		springMongodbVersion = "1.9.3.RELEASE"
+		springVersion = "4.2.8.RELEASE"
 		slf4jVersion = "1.7.21"
 		commonsLangVersion = "3.4"
 		commonsCollectionsVersion = "4.1"
 		guavaVersion = "19.0"
 		disruptorVersion = "3.3.4"
+		jacksonVersion = "2.8.3"
+		logbackVersion = "1.1.7"
 	}
 	compileJava.options.encoding = ext["encoding"]
 	compileTestJava.options.encoding = ext["encoding"]
+	
 	dependencies{
 		testCompile ("junit:junit:${junitVersion}")
 	}
@@ -67,14 +75,30 @@ configure(subprojects) { project ->
 	    }
 	}
 	
+	test{
+		testLogging{
+			showStandardStreams  = true
+		}
+	}
+	
 	build.dependsOn install
 	rootProject.tasks.afterReleaseBuild.dependsOn uploadArchives
 }
+
 
 project(":appsugar-bean"){
 	dependencies{
 		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
 		compileOnly ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
+	}
+}
+
+project(":appsugar-test"){
+	dependencies{
+		compile ("junit:junit:${junitVersion}")
+		compile ("ch.qos.logback:logback-classic:${logbackVersion}")
+		compile ("org.springframework:spring-test:${springVersion}")
+		compile ("org.springframework:spring-context:${springVersion}")
 	}
 }
 
@@ -88,6 +112,9 @@ project(":appsugar-commons"){
 project(":appsugar-data-common"){
 	dependencies{
 		compile project(":appsugar-bean")
+		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
+		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
+		compile("com.google.guava:guava:${guavaVersion}")
 		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
 	}
 }
@@ -96,9 +123,29 @@ project(":appsugar-data-jpa"){
 		compile project(":appsugar-data-common")
 		compile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
 		compile("org.springframework.data:spring-data-jpa:${springDataJpaVersion}")
-		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
-		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
-		compile("com.google.guava:guava:${guavaVersion}")
+	}
+}
+
+project(":appsugar-data-mongodb"){
+	apply plugin: 'mongo'
+	dependencies{
+		compile project(":appsugar-data-common")
+		compile ("org.springframework.data:spring-data-mongodb:${springMongodbVersion}")
+		compileOnly ("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
+		compileOnly ("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+		testCompile ("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
+		testCompile ("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+		testCompile project(":appsugar-test")
+	}
+	mongo {
+	    port 27017
+	    logging 'console'
+	}
+	test {
+		runWithMongoDb = true
+	    systemProperties = [
+	            refreshDb: true
+	    ]
 	}
 }
 
@@ -107,3 +154,4 @@ project(":appsugar-service"){
 		compile project(":appsugar-data-jpa")
 	}
 }
+
