@@ -35,7 +35,7 @@ configure(subprojects) { project ->
 	ext{
 		junitVersion = "4.12"
 		jpaVersion = "1.0.0.Final"
-		springDataJpaVersion = "1.10.2.RELEASE"
+		springDataJpaVersion = "1.10.4.RELEASE"
 		springMongodbVersion = "1.9.3.RELEASE"
 		springVersion = "4.2.8.RELEASE"
 		slf4jVersion = "1.7.21"
@@ -152,6 +152,8 @@ project(":appsugar-data-mongodb"){
 project(":appsugar-service"){
 	dependencies{
 		compile project(":appsugar-data-jpa")
+		compileOnly("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
+		compileOnly("org.springframework.data:spring-data-jpa:${springDataJpaVersion}")
 	}
 }
 
