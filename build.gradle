@@ -1,5 +1,8 @@
 buildscript {
 	repositories {
+		maven{
+			url "http://maven.aliyun.com/nexus/content/groups/public"
+		}
 		mavenCentral()
 		jcenter()
 	}
@@ -25,6 +28,9 @@ configure(subprojects) { project ->
 	apply plugin: "maven"
 	
 	repositories {
+		maven{
+			url "http://maven.aliyun.com/nexus/content/groups/public"
+		}
 		mavenCentral()
 	}
 	// put default properties
@@ -66,10 +72,10 @@ configure(subprojects) { project ->
 	    repositories {
 	       mavenDeployer {
              repository(url: "http://nexus.ggxueche.cn/nexus/content/repositories/releases") {
-            	 authentication(userName: "${nexusUserName}", password: "${nexusPassword}")
+            	 authentication(userName: "", password: "")
 			 }
 			 snapshotRepository(url: "http://nexus.ggxueche.cn/nexus/content/repositories/snapshots") {
-                 authentication(userName: "${nexusUserName}", password: "${nexusPassword}")  
+                 authentication(userName: "", password: "")  
              }  
 	       }
 	    }
