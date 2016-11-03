@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-public abstract class BaseRepositoryTest extends SpringBaseTest {
-	public static final Logger log = LoggerFactory.getLogger(BaseRepositoryTest.class);
+public abstract class BaseMongoTest extends SpringBaseTest {
+	public static final Logger log = LoggerFactory.getLogger(BaseMongoTest.class);
 
 	private static volatile boolean loadedDB = false;
 	private static String dataPath = "simple/data_mongo.json";
@@ -20,7 +20,7 @@ public abstract class BaseRepositoryTest extends SpringBaseTest {
 		if (loadedDB) {
 			return;
 		}
-		synchronized (BaseRepositoryTest.class) {
+		synchronized (BaseMongoTest.class) {
 			if (loadedDB) {
 				return;
 			}

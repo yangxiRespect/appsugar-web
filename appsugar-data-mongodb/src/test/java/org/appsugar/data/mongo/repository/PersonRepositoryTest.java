@@ -2,7 +2,7 @@ package org.appsugar.data.mongo.repository;
 
 import java.util.List;
 
-import org.appsugar.data.mongo.BaseRepositoryTest;
+import org.appsugar.data.mongo.BaseMongoTest;
 import org.appsugar.data.mongo.domain.CityPersonStat;
 import org.appsugar.data.mongo.entity.Address;
 import org.appsugar.data.mongo.entity.Person;
@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 
-public class PersonRepositoryTest extends BaseRepositoryTest {
+public class PersonRepositoryTest extends BaseMongoTest {
 
 	@Autowired
 	private PersonRepository personRepository;

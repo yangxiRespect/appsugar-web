@@ -17,16 +17,16 @@ import org.springframework.data.repository.NoRepositoryBean;
  * 2016年1月28日下午5:58:56
  */
 @NoRepositoryBean
-public interface IdEntityRepository<T extends LongIdEntity, C extends LongIdEntityCondition>
+public interface JpaIdEntityRepository<T extends LongIdEntity, C extends LongIdEntityCondition>
 		extends JpaRepository<T, Long>, GenericIdEntityRepository<Long, T>, JpaSpecificationExecutor<T> {
 
 	/** 
 	 * 根据条件分页查询
 	 */
-	public Page<T> findAll(C condition, Pageable pageable);
+	public Page<T> findPageByCondition(C condition, Pageable pageable);
 
 	/**
 	 * 根据条件查询所以
 	 */
-	public List<T> findAll(C condition);
+	public List<T> findByCondition(C condition);
 }

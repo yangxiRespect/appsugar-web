@@ -6,7 +6,7 @@ import org.appsugar.bean.condition.LongIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.entity.LongIdEntity;
-import org.appsugar.data.jpa.repository.IdEntityRepository;
+import org.appsugar.data.jpa.repository.JpaIdEntityRepository;
 import org.appsugar.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,7 +14,7 @@ public class GenericServiceImpl<T extends LongIdEntity, C extends LongIdEntityCo
 		implements GenericService<T, C> {
 
 	@Autowired
-	protected IdEntityRepository<T, C> repository;
+	protected JpaIdEntityRepository<T, C> repository;
 
 	@Override
 	public T get(Long id) {
@@ -53,12 +53,12 @@ public class GenericServiceImpl<T extends LongIdEntity, C extends LongIdEntityCo
 
 	@Override
 	public Page<T> getByCondition(C condition, Pageable pageable) {
-		return repository.findAll(condition, pageable);
+		return repository.findPageByCondition(condition, pageable);
 	}
 
 	@Override
 	public List<T> getByCondition(C condition) {
-		return repository.findAll(condition);
+		return repository.findByCondition(condition);
 	}
 
 }

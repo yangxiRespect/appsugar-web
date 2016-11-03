@@ -18,17 +18,17 @@ import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
  * @author NewYoung
  * 2016年2月25日下午2:33:11
  */
-public class IdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdEntityCondition>
-		extends SimpleJpaRepository<T, Long> implements IdEntityRepository<T, C> {
+public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdEntityCondition>
+		extends SimpleJpaRepository<T, Long> implements JpaIdEntityRepository<T, C> {
 
 	protected IdEntitySpecification<T, C> specification;
 
-	public IdEntityRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
+	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
 		super(entityInformation, entityManager);
 	}
 
 	@Override
-	public Page<T> findAll(C condition, Pageable pageable) {
+	public Page<T> findPageByCondition(C condition, Pageable pageable) {
 		try {
 			return PageUtils.toPage(findAll(specification.clone(condition), PageUtils.toPageable(pageable)), pageable);
 		} catch (CloneNotSupportedException e) {
@@ -37,7 +37,7 @@ public class IdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdEnti
 	}
 
 	@Override
-	public List<T> findAll(C condition) {
+	public List<T> findByCondition(C condition) {
 		try {
 			return findAll(specification.clone(condition));
 		} catch (CloneNotSupportedException e) {

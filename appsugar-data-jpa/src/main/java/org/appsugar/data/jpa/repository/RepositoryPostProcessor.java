@@ -37,15 +37,15 @@ public class RepositoryPostProcessor implements BeanPostProcessor, Ordered {
 
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		if (AopUtils.isAopProxy(bean) && bean instanceof IdEntityRepository) {
+		if (AopUtils.isAopProxy(bean) && bean instanceof JpaIdEntityRepository) {
 			logger.debug("Found repository {} prepare to  set Specifiction ", beanName);
 			try {
 				Advised advised = (Advised) bean;
-				Class<?> repositoryInterface = getRepositoryClass(IdEntityRepository.class,
+				Class<?> repositoryInterface = getRepositoryClass(JpaIdEntityRepository.class,
 						advised.getProxiedInterfaces());
 				Class<?>[] classes = GenericTypeResolver.resolveTypeArguments(repositoryInterface,
-						IdEntityRepository.class);
-				IdEntityRepositoryImpl target = (IdEntityRepositoryImpl) advised.getTargetSource().getTarget();
+						JpaIdEntityRepository.class);
+				JpaIdEntityRepositoryImpl target = (JpaIdEntityRepositoryImpl) advised.getTargetSource().getTarget();
 				List<IdEntitySpecification> matchedSpecifictionList = new LinkedList<>();
 				for (Entry<String, IdEntitySpecification> entry : context.getBeansOfType(IdEntitySpecification.class)
 						.entrySet()) {

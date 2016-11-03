@@ -7,7 +7,8 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-      classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.13.0'
+    	classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.13.0'
+     	classpath 'com.github.kstyrc:embedded-redis:0.6'
     }
 }
 plugins {
@@ -43,6 +44,7 @@ configure(subprojects) { project ->
 		jpaVersion = "1.0.0.Final"
 		springDataJpaVersion = "1.10.4.RELEASE"
 		springMongodbVersion = "1.9.3.RELEASE"
+		springRedisVersion = "1.7.4.RELEASE"
 		springVersion = "4.2.8.RELEASE"
 		slf4jVersion = "1.7.21"
 		commonsLangVersion = "3.4"
@@ -51,6 +53,7 @@ configure(subprojects) { project ->
 		disruptorVersion = "3.3.4"
 		jacksonVersion = "2.8.3"
 		logbackVersion = "1.1.7"
+		jedisVersion = "2.9.0"
 	}
 	compileJava.options.encoding = ext["encoding"]
 	compileTestJava.options.encoding = ext["encoding"]
@@ -72,10 +75,10 @@ configure(subprojects) { project ->
 	    repositories {
 	       mavenDeployer {
              repository(url: "http://nexus.ggxueche.cn/nexus/content/repositories/releases") {
-            	 authentication(userName: "", password: "")
+            	 authentication(userName: "${nexusUserName}", password: "${nexusPassword}")
 			 }
 			 snapshotRepository(url: "http://nexus.ggxueche.cn/nexus/content/repositories/snapshots") {
-                 authentication(userName: "", password: "")  
+                 authentication(userName: "${nexusUserName}", password: "${nexusPassword}")  
              }  
 	       }
 	    }
@@ -153,6 +156,25 @@ project(":appsugar-data-mongodb"){
 	            refreshDb: true
 	    ]
 	}
+}
+
+project(":appsugar-data-redis"){
+	dependencies{
+		compile project(":appsugar-data-common")
+		compile ("org.springframework.data:spring-data-redis:${springRedisVersion}")
+		compile ("redis.clients:jedis:${jedisVersion}")
+		
+		testCompile project(":appsugar-test")
+	}
+	def server=new redis.embedded.RedisServerBuilder().setting("maxheap 512Mb").port(6379).build();
+	task ('stopRedisServer')<< {
+		server.stop();
+	} 
+	test.doFirst{
+		server.start();
+	}
+	test.finalizedBy(stopRedisServer)
+
 }
 
 project(":appsugar-service"){
