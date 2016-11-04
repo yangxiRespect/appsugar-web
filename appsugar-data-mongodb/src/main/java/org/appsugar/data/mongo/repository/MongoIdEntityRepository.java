@@ -25,4 +25,5 @@ public interface MongoIdEntityRepository<T extends StringIdEntity>
 	public default Page<T> findAll(Example<T> example, Pageable pageable) {
 		return PageUtils.toPage(findAll(example, PageUtils.toPageable(pageable)), pageable);
 	}
+
 }

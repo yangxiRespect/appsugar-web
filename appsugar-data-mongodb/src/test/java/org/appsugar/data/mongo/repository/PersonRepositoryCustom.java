@@ -27,7 +27,7 @@ public interface PersonRepositoryCustom {
 	/**
 	 * 给person新增一堆宠物
 	 */
-	public boolean addPets(String id, Pet[] pets);
+	public boolean addPets(String id, Pet... pets);
 
 	/**
 	 * 根据名称修改宠物的年龄

@@ -2,6 +2,10 @@ package org.appsugar.data.mongo.domain;
 
 public class CityPersonStat {
 
+	//type safe
+	public static final String _city = "city";
+	public static final String _personCount = "personCount";
+
 	private String city;
 
 	private Long personCount;

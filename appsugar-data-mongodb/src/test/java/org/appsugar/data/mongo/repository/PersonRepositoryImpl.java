@@ -3,7 +3,9 @@ package org.appsugar.data.mongo.repository;
 import java.util.List;
 
 import org.appsugar.bean.entity.StringIdEntity;
+import org.appsugar.data.mongo.Paths;
 import org.appsugar.data.mongo.domain.CityPersonStat;
+import org.appsugar.data.mongo.entity.Address;
 import org.appsugar.data.mongo.entity.Person;
 import org.appsugar.data.mongo.entity.Pet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
 
 	private MongoOperations operation;
 
+	private static final String addressCityPath = Paths.join(Person._address, Address._city);
+	private static final String addressStreetPath = Paths.join(Person._address, Address._street);
+
 	public PersonRepositoryImpl() {
 		super();
 	}
@@ -37,31 +42,32 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
 	@Override
 	public boolean updatePersonAddress(Person person) {
 		return operation.updateFirst(Query.query(Criteria.where(StringIdEntity._id).is(person.getId())),
-				Update.update(Person._address, person.getAddress()), Person.class).getN() == 1;
+				Update.update(Person._address, person.getAddress()), Person.class).getN() > 0;
 	}
 
 	@Override
 	public boolean updatePersonAddressCityAndStreet(String id, String city, String street) {
 		return operation.updateFirst(Query.query(Criteria.where(StringIdEntity._id).is(id)),
-				Update.update("address.city", city).set("address.street", street), Person.class).getN() == 1;
+				Update.update(addressCityPath, city).set(addressStreetPath, street), Person.class).getN() > 0;
 	}
 
 	@Override
 	public List<CityPersonStat> groupCityPersons() {
 		TypedAggregation<Person> aggregation = Aggregation.newAggregation(Person.class,
-				Aggregation.group("address.city").count().as("personCount").addToSet("address.city").as("city"),
-				Aggregation.project("personCount").and("city").previousOperation());
+				Aggregation.group(addressCityPath).count().as(CityPersonStat._personCount).addToSet(addressCityPath)
+						.as(CityPersonStat._city),
+				Aggregation.project(CityPersonStat._personCount).and(CityPersonStat._city).previousOperation());
 		return operation.aggregate(aggregation, CityPersonStat.class).getMappedResults();
 	}
 
 	@Override
-	public boolean addPets(String id, Pet[] pets) {
+	public boolean addPets(String id, Pet... pets) {
 		//pushAll不推荐使用了 maven的mongodb集成插件还只支持到2.2.1，所以push each会出问题
 		return operation.updateFirst(Query.query(Criteria.where(StringIdEntity._id).is(id)),
 				new Update().push(Person._pets).each((Object[]) pets), Person.class).getN() > 0;
 	}
 
-	private static final String dynamicPetAgeColumn = Person._pets + ".$.age";
+	private static final String dynamicPetAgeColumn = Paths.join(Person._pets, "$", Pet._age);
 
 	@Override
 	public boolean updatePetsAgeByName(String id, String petName, Integer newAge) {
@@ -79,5 +85,4 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
 				new Update().pull(Person._pets, Criteria.where(Pet._name).is(petName).getCriteriaObject()),
 				Person.class).getN() > 0;
 	}
-
 }
