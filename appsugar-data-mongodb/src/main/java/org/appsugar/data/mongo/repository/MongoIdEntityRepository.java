@@ -3,6 +3,7 @@ package org.appsugar.data.mongo.repository;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.entity.StringIdEntity;
+import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.appsugar.data.common.util.PageUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,14 +16,8 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @param <T>
  */
 @NoRepositoryBean
-public interface MongoIdEntityRepository<T extends StringIdEntity> extends MongoRepository<T, String> {
-
-	/**
-	 * 兼容内部分页查询
-	 */
-	public default Page<T> findAll(Pageable pageable) {
-		return PageUtils.toPage(findAll(PageUtils.toPageable(pageable)), pageable);
-	}
+public interface MongoIdEntityRepository<T extends StringIdEntity>
+		extends MongoRepository<T, String>, GenericIdEntityRepository<String, T> {
 
 	/**
 	 * 兼容内部分页查询

@@ -3,8 +3,6 @@ package org.appsugar.data.redis.repository;
 import org.appsugar.data.redis.BaseRedisTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * 
@@ -16,17 +14,11 @@ public class PersonRepositoryTest extends BaseRedisTest {
 	@Autowired
 	private PersonRepository repository;
 
-	@Autowired
-	private ApplicationContext ctx;
-
-	@Autowired
-	private RedisTemplate<String, String> redisTemplate;
-
 	@Test
-	public void testFindAll() {
-		Iterable<Person> result = repository.findAll();
-		logger.debug("testFindAll result is {}", result);
-		//System.out.println(ctx.getBeansOfType(RedisRepository.class).get("personRepository").getClass());
+	public void testFindById() {
+		String id = "-1";
+		Person result = repository.findOne(id);
+		logger.debug("testFindById id {} result {}", id, result);
 	}
 
 }

@@ -1,7 +1,0 @@
-[{
-	"className" : "org.appsugar.data.redis.repository.Person",
-	"items":[
-		{"id":"-1","createdAt":"2015-08-05","updatedAt":"2015-08-06","name":"NewYoung","phone":"18503051182","email":"shenliuyang@gmail.com"},
-		{"id":"-2","createdAt":"2015-08-05","updatedAt":"2015-08-06","name":"xianglushan","phone":"13503051182","email":"xls@qq.com"}
-	]
-}]

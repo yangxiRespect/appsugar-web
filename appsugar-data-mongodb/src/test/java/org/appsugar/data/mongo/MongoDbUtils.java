@@ -1,4 +1,4 @@
-package org.appsugar.data.mongo.util;
+package org.appsugar.data.mongo;
 
 import java.io.IOException;
 import java.io.InputStream;

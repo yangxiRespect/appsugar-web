@@ -10,12 +10,23 @@ import org.appsugar.data.mongo.entity.Pet;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Example;
 
 public class PersonRepositoryTest extends BaseMongoTest {
 
 	@Autowired
 	private PersonRepository personRepository;
+
+	@Autowired
+	private ApplicationContext context;
+
+	@Test
+	public void testGetComponent() {
+		MongoIdEntityRepository<Person> repository = findComponent(context, MongoIdEntityRepository.class,
+				Person.class);
+		Assert.assertNotNull(repository);
+	}
 
 	@Test
 	public void testFindAll() {

@@ -42,6 +42,7 @@ configure(subprojects) { project ->
 	ext{
 		junitVersion = "4.12"
 		jpaVersion = "1.0.0.Final"
+		springDataCommonsVersion = "1.12.2.RELEASE"
 		springDataJpaVersion = "1.10.4.RELEASE"
 		springMongodbVersion = "1.9.3.RELEASE"
 		springRedisVersion = "1.7.4.RELEASE"
@@ -49,6 +50,7 @@ configure(subprojects) { project ->
 		slf4jVersion = "1.7.21"
 		commonsLangVersion = "3.4"
 		commonsCollectionsVersion = "4.1"
+		commonsBeanutilsVersion = "1.9.3"
 		guavaVersion = "19.0"
 		disruptorVersion = "3.3.4"
 		jacksonVersion = "2.8.3"
@@ -102,21 +104,34 @@ project(":appsugar-bean"){
 	}
 }
 
+
 project(":appsugar-test"){
 	dependencies{
+		compile ("commons-beanutils:commons-beanutils:${commonsBeanutilsVersion}")
+		compile("com.google.guava:guava:${guavaVersion}")
+		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
+		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
 		compile ("junit:junit:${junitVersion}")
 		compile ("ch.qos.logback:logback-classic:${logbackVersion}")
 		compile ("org.springframework:spring-test:${springVersion}")
 		compile ("org.springframework:spring-context:${springVersion}")
+		compile ("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
+		compile ("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+		compile ("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jacksonVersion}")
+		compileOnly ("org.springframework.data:spring-data-commons:${springDataCommonsVersion}")
 	}
 }
 
+
 project(":appsugar-commons"){
 	dependencies{
-		compile ("com.lmax:disruptor:${disruptorVersion}")
-		compile("com.google.guava:guava:${guavaVersion}")
+		compile	("com.google.guava:guava:${guavaVersion}")
+		compileOnly ("com.lmax:disruptor:${disruptorVersion}")
+		testCompile ("com.lmax:disruptor:${disruptorVersion}")
 	}
 }
+
+
 
 project(":appsugar-data-common"){
 	dependencies{
@@ -124,7 +139,7 @@ project(":appsugar-data-common"){
 		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
 		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
 		compile("com.google.guava:guava:${guavaVersion}")
-		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
+		compileOnly ("org.springframework.data:spring-data-commons:${springDataCommonsVersion}")
 	}
 }
 project(":appsugar-data-jpa"){
@@ -140,10 +155,6 @@ project(":appsugar-data-mongodb"){
 	dependencies{
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-mongodb:${springMongodbVersion}")
-		compileOnly ("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
-		compileOnly ("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
-		testCompile ("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
-		testCompile ("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
 		testCompile project(":appsugar-test")
 	}
 	mongo {
@@ -174,6 +185,11 @@ project(":appsugar-data-redis"){
 		server.start();
 	}
 	test.finalizedBy(stopRedisServer)
+	test {
+	    systemProperties = [
+	            refreshDb: true
+	    ]
+	}
 
 }
 

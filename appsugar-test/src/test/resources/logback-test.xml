@@ -10,8 +10,9 @@
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework" level="WARN"/>
 	
-	<logger name="org.apache.commons.beanutils" level="WARN"/>
+	<logger name="org.hibernate" level="WARN"/>
 	
+	<logger name="org.hibernate.SQL" level="DEBUG"/>
  
     <root level="debug">
    		<appender-ref ref="STDOUT" />
