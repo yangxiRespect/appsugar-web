@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author NewYoung
  * 2016年10月31日下午6:07:52
  */
-public class PersonRepositoryTest extends BaseRedisTest {
+public class PersonRedisRepositoryTest extends BaseRedisTest {
 
 	@Autowired
-	private PersonRepository repository;
+	private PersonRedisRepository repository;
 
 	@Test
 	public void testFindById() {

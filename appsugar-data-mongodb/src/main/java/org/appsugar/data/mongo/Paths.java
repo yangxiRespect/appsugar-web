@@ -8,6 +8,9 @@ import org.apache.commons.lang3.StringUtils;
  * 2016年11月4日下午9:22:18
  */
 public class Paths {
+
+	public static final String MATCHED_SYMBOL = "$";
+
 	/**
 	 * 组合路径
 	 * <pre>

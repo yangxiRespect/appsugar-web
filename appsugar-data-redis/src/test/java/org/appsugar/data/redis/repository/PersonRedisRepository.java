@@ -7,7 +7,7 @@ import org.appsugar.data.redis.RedisIdEntityRepository;
  * @author NewYoung
  * 2016年10月31日下午5:56:23
  */
-public interface PersonRepository extends RedisIdEntityRepository<Person> {
+public interface PersonRedisRepository extends RedisIdEntityRepository<Person> {
 	/**
 	 * 根据名称查询person
 	 * @param name 名称

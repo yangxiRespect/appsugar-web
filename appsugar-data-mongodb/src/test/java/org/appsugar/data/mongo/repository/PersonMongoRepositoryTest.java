@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Example;
 
-public class PersonRepositoryTest extends BaseMongoTest {
+public class PersonMongoRepositoryTest extends BaseMongoTest {
 
 	@Autowired
-	private PersonRepository personRepository;
+	private PersonMongoRepository personRepository;
 
 	@Autowired
 	private ApplicationContext context;

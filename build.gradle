@@ -46,6 +46,7 @@ configure(subprojects) { project ->
 		springDataJpaVersion = "1.10.4.RELEASE"
 		springMongodbVersion = "1.9.3.RELEASE"
 		springRedisVersion = "1.7.4.RELEASE"
+		springSolrVersion = "2.0.4.RELEASE"
 		springVersion = "4.2.8.RELEASE"
 		slf4jVersion = "1.7.21"
 		commonsLangVersion = "3.4"
@@ -56,6 +57,7 @@ configure(subprojects) { project ->
 		jacksonVersion = "2.8.3"
 		logbackVersion = "1.1.7"
 		jedisVersion = "2.9.0"
+		solrVersion = "6.2.1"
 	}
 	compileJava.options.encoding = ext["encoding"]
 	compileTestJava.options.encoding = ext["encoding"]
@@ -90,7 +92,11 @@ configure(subprojects) { project ->
 		testLogging{
 			showStandardStreams  = true
 		}
+		systemProperties = [
+	            refreshDb: true
+	    ]
 	}
+
 	
 	build.dependsOn install
 	rootProject.tasks.afterReleaseBuild.dependsOn uploadArchives
@@ -163,9 +169,6 @@ project(":appsugar-data-mongodb"){
 	}
 	test {
 		runWithMongoDb = true
-	    systemProperties = [
-	            refreshDb: true
-	    ]
 	}
 }
 
@@ -174,7 +177,6 @@ project(":appsugar-data-redis"){
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-redis:${springRedisVersion}")
 		compile ("redis.clients:jedis:${jedisVersion}")
-		
 		testCompile project(":appsugar-test")
 	}
 	def server=new redis.embedded.RedisServerBuilder().setting("maxheap 512Mb").port(6379).build();
@@ -185,12 +187,18 @@ project(":appsugar-data-redis"){
 		server.start();
 	}
 	test.finalizedBy(stopRedisServer)
-	test {
-	    systemProperties = [
-	            refreshDb: true
-	    ]
-	}
 
+}
+
+project(":appsugar-data-solr"){
+	dependencies{
+		compile project(":appsugar-data-common")
+		compile("org.springframework.data:spring-data-solr:${springSolrVersion}")
+		testCompile("org.apache.solr:solr-core:${solrVersion}")
+		testCompile project(":appsugar-test")
+	}
+	//skip test until spring support solr 6 
+	test.enabled = false;
 }
 
 project(":appsugar-service"){

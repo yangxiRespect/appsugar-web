@@ -12,7 +12,7 @@ import org.appsugar.data.mongo.entity.Pet;
  *
  * 2015年8月7日上午10:29:51
  */
-public interface PersonRepositoryCustom {
+public interface PersonMongoRepositoryCustom {
 
 	/**
 	 * 修改地址

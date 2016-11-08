@@ -23,21 +23,13 @@ import org.springframework.data.mongodb.core.query.Update;
  *
  * 2015年8月7日上午10:35:07
  */
-public class PersonRepositoryImpl implements PersonRepositoryCustom {
-
-	private MongoOperations operation;
+public class PersonMongoRepositoryImpl implements PersonMongoRepositoryCustom {
 
 	private static final String addressCityPath = Paths.join(Person._address, Address._city);
 	private static final String addressStreetPath = Paths.join(Person._address, Address._street);
+	private static final String dynamicPetAgeColumn = Paths.join(Person._pets, Paths.MATCHED_SYMBOL, Pet._age);
 
-	public PersonRepositoryImpl() {
-		super();
-	}
-
-	@Autowired
-	public void setOperation(MongoOperations operation) {
-		this.operation = operation;
-	}
+	private MongoOperations operation;
 
 	@Override
 	public boolean updatePersonAddress(Person person) {
@@ -53,6 +45,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
 
 	@Override
 	public List<CityPersonStat> groupCityPersons() {
+		//Aggregation.match(criteria)
 		TypedAggregation<Person> aggregation = Aggregation.newAggregation(Person.class,
 				Aggregation.group(addressCityPath).count().as(CityPersonStat._personCount).addToSet(addressCityPath)
 						.as(CityPersonStat._city),
@@ -66,8 +59,6 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
 		return operation.updateFirst(Query.query(Criteria.where(StringIdEntity._id).is(id)),
 				new Update().push(Person._pets).each((Object[]) pets), Person.class).getN() > 0;
 	}
-
-	private static final String dynamicPetAgeColumn = Paths.join(Person._pets, "$", Pet._age);
 
 	@Override
 	public boolean updatePetsAgeByName(String id, String petName, Integer newAge) {
@@ -84,5 +75,10 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
 		return operation.updateFirst(Query.query(Criteria.where(StringIdEntity._id).is(id)),
 				new Update().pull(Person._pets, Criteria.where(Pet._name).is(petName).getCriteriaObject()),
 				Person.class).getN() > 0;
+	}
+
+	@Autowired
+	public void setOperation(MongoOperations operation) {
+		this.operation = operation;
 	}
 }
