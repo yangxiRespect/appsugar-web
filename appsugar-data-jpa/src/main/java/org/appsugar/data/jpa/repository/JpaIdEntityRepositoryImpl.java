@@ -1,6 +1,8 @@
 package org.appsugar.data.jpa.repository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 
@@ -43,6 +45,21 @@ public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdE
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public <S extends T> S save(S entity) {
+		Date date = new Date();
+		if (Objects.isNull(entity.getId())) {
+			entity.setCreatedAt(date);
+		}
+		entity.setUpdatedAt(date);
+		return super.save(entity);
+	}
+
+	@Override
+	public <S extends T> List<S> save(Iterable<S> entities) {
+		return super.save(entities);
 	}
 
 }
