@@ -176,7 +176,8 @@ project(":appsugar-data-redis"){
 	dependencies{
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-redis:${springRedisVersion}")
-		compile ("redis.clients:jedis:${jedisVersion}")
+		compile ("org.springframework.integration:spring-integration-redis:${springVersion}")
+		testCompile ("redis.clients:jedis:${jedisVersion}")
 		testCompile project(":appsugar-test")
 	}
 	def server=new redis.embedded.RedisServerBuilder().setting("maxheap 512Mb").port(6379).build();
