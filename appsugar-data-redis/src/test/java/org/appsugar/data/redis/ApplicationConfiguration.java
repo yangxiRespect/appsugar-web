@@ -1,5 +1,8 @@
 package org.appsugar.data.redis;
 
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -26,5 +29,12 @@ public class ApplicationConfiguration {
 	@Bean
 	public RedisLockRegistry lockRegistry() {
 		return new RedisLockRegistry(connectionFactory(), "test");
+	}
+
+	@Bean(destroyMethod = "shutdown")
+	public RedissonClient redissonClient() {
+		Config config = new Config();
+		config.useSingleServer().setAddress("127.0.0.1:6379");
+		return Redisson.create(config);
 	}
 }

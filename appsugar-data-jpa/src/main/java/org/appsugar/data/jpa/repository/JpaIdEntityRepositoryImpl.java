@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import org.appsugar.bean.condition.LongIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
+import org.appsugar.bean.domain.Sort;
 import org.appsugar.bean.entity.LongIdEntity;
 import org.appsugar.data.common.util.PageUtils;
 import org.appsugar.specification.IdEntitySpecification;
@@ -60,6 +61,24 @@ public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdE
 	@Override
 	public <S extends T> List<S> save(Iterable<S> entities) {
 		return super.save(entities);
+	}
+
+	@Override
+	public List<T> findByCondition(C condition, Sort sort) {
+		try {
+			return findAll(specification.clone(condition), PageUtils.toSort(sort));
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public long count(C condition) {
+		try {
+			return count(specification.clone(condition));
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

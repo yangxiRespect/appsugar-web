@@ -5,6 +5,7 @@ import java.util.List;
 import org.appsugar.bean.condition.LongIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
+import org.appsugar.bean.domain.Sort;
 import org.appsugar.bean.entity.LongIdEntity;
 import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,10 +24,23 @@ public interface JpaIdEntityRepository<T extends LongIdEntity, C extends LongIdE
 	/** 
 	 * 根据条件分页查询
 	 */
-	public Page<T> findPageByCondition(C condition, Pageable pageable);
+	Page<T> findPageByCondition(C condition, Pageable pageable);
 
 	/**
 	 * 根据条件查询所以
 	 */
-	public List<T> findByCondition(C condition);
+	List<T> findByCondition(C condition);
+
+	/**
+	 * 根据条件查询并排序
+	 */
+	List<T> findByCondition(C condition, Sort sort);
+
+	/**
+	 * 查询符合条件的数目
+	 * @author NewYoung
+	 * 2016年11月15日下午6:09:10
+	 */
+	long count(C condition);
+
 }

@@ -57,6 +57,7 @@ configure(subprojects) { project ->
 		jacksonVersion = "2.8.3"
 		logbackVersion = "1.1.7"
 		jedisVersion = "2.9.0"
+		redissonVersion = "3.0.1"
 		solrVersion = "6.2.1"
 	}
 	compileJava.options.encoding = ext["encoding"]
@@ -177,6 +178,8 @@ project(":appsugar-data-redis"){
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-redis:${springRedisVersion}")
 		compile ("org.springframework.integration:spring-integration-redis:${springVersion}")
+		
+		testCompile ("org.redisson:redisson:${redissonVersion}")
 		testCompile ("redis.clients:jedis:${jedisVersion}")
 		testCompile project(":appsugar-test")
 	}
