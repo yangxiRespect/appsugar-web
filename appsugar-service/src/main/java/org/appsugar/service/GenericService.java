@@ -5,6 +5,7 @@ import java.util.List;
 import org.appsugar.bean.condition.LongIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
+import org.appsugar.bean.domain.Sort;
 import org.appsugar.bean.entity.LongIdEntity;
 
 /**
@@ -59,4 +60,11 @@ public interface GenericService<T extends LongIdEntity, C extends LongIdEntityCo
 	 * 根据条件查询所有
 	 */
 	public List<T> getByCondition(C condition);
+
+	/**
+	 * 根据查询条件查询并排序
+	 * @author NewYoung
+	 * 2016年11月16日下午12:51:07
+	 */
+	public List<T> getByCondition(C condition, Sort sort);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.appsugar.bean.condition.LongIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
+import org.appsugar.bean.domain.Sort;
 import org.appsugar.bean.entity.LongIdEntity;
 import org.appsugar.data.jpa.repository.JpaIdEntityRepository;
 import org.appsugar.service.GenericService;
@@ -59,6 +60,11 @@ public class GenericServiceImpl<T extends LongIdEntity, C extends LongIdEntityCo
 	@Override
 	public List<T> getByCondition(C condition) {
 		return repository.findByCondition(condition);
+	}
+
+	@Override
+	public List<T> getByCondition(C condition, Sort sort) {
+		return repository.findByCondition(condition, sort);
 	}
 
 }
