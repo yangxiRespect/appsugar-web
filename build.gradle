@@ -184,8 +184,11 @@ project(":appsugar-data-redis"){
 		testCompile project(":appsugar-test")
 	}
 	def server=new redis.embedded.RedisServerBuilder().setting("maxheap 512Mb").port(6379).build();
-	task ('stopRedisServer')<< {
-		server.stop();
+	task (stopRedisServer) {
+		doLast{
+			println "shutdown redis server"
+			server.stop();
+		}
 	} 
 	test.doFirst{
 		server.start();
