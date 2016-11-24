@@ -18,8 +18,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 public abstract class GenericIdEntity<ID extends Serializable> implements Serializable {
 	private static final long serialVersionUID = -608692408189530550L;
 
-	public static final String _createdAT = "createdAt";
-	public static final String _updatedAT = "updatedAt";
+	public static final String _createdAt = "createdAt";
+	public static final String _updatedAt = "updatedAt";
 	//数据创建时间
 
 	protected Date createdAt;
