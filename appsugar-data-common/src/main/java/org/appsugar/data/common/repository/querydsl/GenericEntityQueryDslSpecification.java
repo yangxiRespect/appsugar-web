@@ -53,7 +53,15 @@ public class GenericEntityQueryDslSpecification<C extends GenericIdEntityConditi
 		}
 		Date endAt = condition.getEndAt();
 		if (Objects.nonNull(endAt)) {
-			pc.add(createdAt.loe(endAt));
+			pc.add(createdAt.lt(endAt));
+		}
+		Date modifyStartAt = condition.getModifyStartAt();
+		if (Objects.nonNull(modifyStartAt)) {
+			pc.add(updatedAt.goe(modifyStartAt));
+		}
+		Date modifyEndAt = condition.getModifyEndAt();
+		if (Objects.nonNull(modifyEndAt)) {
+			pc.add(updatedAt.lt(modifyEndAt));
 		}
 	}
 
