@@ -14,6 +14,8 @@ buildscript {
 plugins {
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
     id 'net.researchgate.release' version '2.4.0'
+    //querydsl
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.7" apply  false
 }
 apply plugin: 'java'
 
@@ -24,10 +26,28 @@ def loadGroovyConfig(p){
 }
 
 
+
 configure(subprojects) { project ->
 	apply plugin: "java"
 	apply plugin: "maven"
-	
+	if(project.name.startsWith("appsugar-data-")){
+		apply plugin: "com.ewerk.gradle.plugins.querydsl"
+		compileQuerydsl.options.encoding = "UTF-8"
+		sourceSets {
+		    generated {
+		        java {
+		            srcDirs = ['src/main/generated']
+		        }
+		    }
+		}
+		querydsl{
+			querydslDefault = true
+			querydslSourcesDir = sourceSets.generated.java.srcDirs.iterator().next()
+			dependencies{
+				compile ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
+			}
+		}
+	}
 	repositories {
 		maven{
 			url "http://maven.aliyun.com/nexus/content/groups/public"
@@ -59,6 +79,7 @@ configure(subprojects) { project ->
 		jedisVersion = "2.9.0"
 		redissonVersion = "3.0.1"
 		solrVersion = "6.2.1"
+		queryDslVersion = "4.1.4"
 	}
 	compileJava.options.encoding = ext["encoding"]
 	compileTestJava.options.encoding = ext["encoding"]
@@ -104,12 +125,7 @@ configure(subprojects) { project ->
 }
 
 
-project(":appsugar-bean"){
-	dependencies{
-		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
-		compileOnly ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
-	}
-}
+
 
 
 project(":appsugar-test"){
@@ -129,6 +145,12 @@ project(":appsugar-test"){
 	}
 }
 
+project(":appsugar-bean"){
+	dependencies{
+		compileOnly ("org.springframework.data:spring-data-commons:1.12.2.RELEASE")
+		compileOnly ("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final")
+	}
+}
 
 project(":appsugar-commons"){
 	dependencies{
@@ -146,7 +168,10 @@ project(":appsugar-data-common"){
 		compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
 		compile("org.apache.commons:commons-collections4:${commonsCollectionsVersion}")
 		compile("com.google.guava:guava:${guavaVersion}")
-		compileOnly ("org.springframework.data:spring-data-commons:${springDataCommonsVersion}")
+		compile("org.springframework.data:spring-data-commons:${springDataCommonsVersion}")
+		compile("org.springframework:spring-context:${springVersion}")
+		compileOnly("com.querydsl:querydsl-core:${queryDslVersion}")
+		compileOnly("com.querydsl:querydsl-apt:${queryDslVersion}")
 	}
 }
 project(":appsugar-data-jpa"){
@@ -154,6 +179,7 @@ project(":appsugar-data-jpa"){
 		compile project(":appsugar-data-common")
 		compile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
 		compile("org.springframework.data:spring-data-jpa:${springDataJpaVersion}")
+		compileOnly("com.querydsl:querydsl-jpa:${queryDslVersion}")
 	}
 }
 
@@ -162,6 +188,8 @@ project(":appsugar-data-mongodb"){
 	dependencies{
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-mongodb:${springMongodbVersion}")
+		compileOnly ("com.querydsl:querydsl-mongodb:${queryDslVersion}")
+		testCompile ("com.querydsl:querydsl-mongodb:${queryDslVersion}")
 		testCompile project(":appsugar-test")
 	}
 	mongo {
@@ -171,6 +199,9 @@ project(":appsugar-data-mongodb"){
 	test {
 		runWithMongoDb = true
 	}
+	querydsl{
+		springDataMongo  = true
+	}
 }
 
 project(":appsugar-data-redis"){
@@ -178,7 +209,8 @@ project(":appsugar-data-redis"){
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-redis:${springRedisVersion}")
 		compile ("org.springframework.integration:spring-integration-redis:${springVersion}")
-		
+		compileOnly ("com.querydsl:querydsl-collections:${queryDslVersion}")
+		testCompile ("com.querydsl:querydsl-collections:${queryDslVersion}")
 		testCompile ("org.redisson:redisson:${redissonVersion}")
 		testCompile ("redis.clients:jedis:${jedisVersion}")
 		testCompile project(":appsugar-test")
@@ -194,7 +226,7 @@ project(":appsugar-data-redis"){
 		server.start();
 	}
 	test.finalizedBy(stopRedisServer)
-
+	
 }
 
 project(":appsugar-data-solr"){

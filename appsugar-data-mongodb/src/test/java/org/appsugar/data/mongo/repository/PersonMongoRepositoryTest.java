@@ -2,6 +2,7 @@ package org.appsugar.data.mongo.repository;
 
 import java.util.List;
 
+import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.data.mongo.BaseMongoTest;
 import org.appsugar.data.mongo.domain.CityPersonStat;
 import org.appsugar.data.mongo.entity.Address;
@@ -23,8 +24,8 @@ public class PersonMongoRepositoryTest extends BaseMongoTest {
 
 	@Test
 	public void testGetComponent() {
-		MongoIdEntityRepository<Person> repository = findComponent(context, MongoIdEntityRepository.class,
-				Person.class);
+		MongoIdEntityRepository<Person, StringIdEntityCondition> repository = findComponent(context,
+				MongoIdEntityRepository.class, Person.class, StringIdEntityCondition.class);
 		Assert.assertNotNull(repository);
 	}
 

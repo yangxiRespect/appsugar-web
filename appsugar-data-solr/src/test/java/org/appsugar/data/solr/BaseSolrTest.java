@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.DateTimeConverter;
+import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.bean.entity.StringIdEntity;
 import org.appsugar.test.data.SampleDataSet;
 import org.appsugar.test.data.xml.XmlSampleDataSet;
@@ -64,8 +65,8 @@ public abstract class BaseSolrTest extends SpringBaseTest {
 		for (String className : dataSet.orderedDataSetNameList()) {
 			Class<?> entityClass = Class.forName(className);
 			try {
-				SolrIdEntityRepository<StringIdEntity> repository = findComponent(ctx, SolrIdEntityRepository.class,
-						entityClass);
+				SolrIdEntityRepository<StringIdEntity, StringIdEntityCondition> repository = findComponent(ctx,
+						SolrIdEntityRepository.class, entityClass);
 				log.debug("drop all {}", entityClass);
 				repository.deleteAll();
 				List entityList = dataSet.getDataListByDataSetName(className).stream().map(e -> {

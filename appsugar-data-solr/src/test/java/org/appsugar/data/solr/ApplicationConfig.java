@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
  * 2016年11月7日下午2:09:28
  */
 @Configuration
-@EnableSolrRepositories(multicoreSupport = true)
+@EnableSolrRepositories(multicoreSupport = true, repositoryBaseClass = SolrIdEntityRepositoryImpl.class)
 class ApplicationConfig {
 
 	@Bean

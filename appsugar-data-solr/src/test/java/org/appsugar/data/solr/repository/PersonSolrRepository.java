@@ -1,5 +1,6 @@
 package org.appsugar.data.solr.repository;
 
+import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.data.solr.SolrIdEntityRepository;
 import org.appsugar.data.solr.entity.Person;
 
@@ -8,7 +9,7 @@ import org.appsugar.data.solr.entity.Person;
  * @author NewYoung
  * 2016年11月7日下午2:23:40
  */
-public interface PersonSolrRepository extends SolrIdEntityRepository<Person> {
+public interface PersonSolrRepository extends SolrIdEntityRepository<Person, StringIdEntityCondition> {
 
 	/**
 	 * 根据名称查询用户

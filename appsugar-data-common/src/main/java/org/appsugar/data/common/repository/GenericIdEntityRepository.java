@@ -2,17 +2,19 @@ package org.appsugar.data.common.repository;
 
 import java.io.Serializable;
 
+import org.appsugar.bean.condition.GenericIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.domain.Sort;
 import org.appsugar.bean.entity.GenericIdEntity;
+import org.appsugar.data.common.repository.ext.RepositoryExtension;
 import org.appsugar.data.common.util.PageUtils;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 @NoRepositoryBean
-public interface GenericIdEntityRepository<ID extends Serializable, T extends GenericIdEntity<ID>>
-		extends PagingAndSortingRepository<T, ID> {
+public interface GenericIdEntityRepository<ID extends Serializable, T extends GenericIdEntity<ID>, C extends GenericIdEntityCondition<ID>>
+		extends PagingAndSortingRepository<T, ID>, RepositoryExtension<ID, T, C> {
 	/**
 	 * Returns all entities sorted by the given options.
 	 * 

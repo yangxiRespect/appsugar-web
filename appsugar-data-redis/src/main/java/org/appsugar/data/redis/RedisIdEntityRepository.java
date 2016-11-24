@@ -1,5 +1,6 @@
 package org.appsugar.data.redis;
 
+import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.bean.entity.StringIdEntity;
 import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -11,6 +12,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @param <T>
  */
 @NoRepositoryBean
-public interface RedisIdEntityRepository<T extends StringIdEntity> extends GenericIdEntityRepository<String, T> {
+public interface RedisIdEntityRepository<T extends StringIdEntity, C extends StringIdEntityCondition>
+		extends GenericIdEntityRepository<String, T, C> {
 
 }

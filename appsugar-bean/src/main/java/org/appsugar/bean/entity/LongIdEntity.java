@@ -13,6 +13,9 @@ import javax.persistence.MappedSuperclass;
 public abstract class LongIdEntity extends GenericIdEntity<Long> {
 	private static final long serialVersionUID = -1391277931996151818L;
 
+	public static final String _id = "id";
+	protected Long id;
+
 	@javax.persistence.Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -21,5 +24,10 @@ public abstract class LongIdEntity extends GenericIdEntity<Long> {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public Long identification() {
+		return this.id;
 	}
 }

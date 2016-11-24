@@ -1,5 +1,6 @@
 package org.appsugar.data.mongo.repository;
 
+import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.entity.StringIdEntity;
@@ -16,8 +17,8 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @param <T>
  */
 @NoRepositoryBean
-public interface MongoIdEntityRepository<T extends StringIdEntity>
-		extends MongoRepository<T, String>, GenericIdEntityRepository<String, T> {
+public interface MongoIdEntityRepository<T extends StringIdEntity, C extends StringIdEntityCondition>
+		extends MongoRepository<T, String>, GenericIdEntityRepository<String, T, C> {
 
 	/**
 	 * 兼容内部分页查询

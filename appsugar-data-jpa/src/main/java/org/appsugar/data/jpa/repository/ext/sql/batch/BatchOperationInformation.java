@@ -1,4 +1,4 @@
-package org.appsugar.extend.sql.batch;
+package org.appsugar.data.jpa.repository.ext.sql.batch;
 
 import java.util.List;
 

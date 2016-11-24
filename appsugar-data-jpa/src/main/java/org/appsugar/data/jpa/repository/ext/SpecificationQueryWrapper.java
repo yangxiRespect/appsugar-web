@@ -1,4 +1,4 @@
-package org.appsugar.extend;
+package org.appsugar.data.jpa.repository.ext;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

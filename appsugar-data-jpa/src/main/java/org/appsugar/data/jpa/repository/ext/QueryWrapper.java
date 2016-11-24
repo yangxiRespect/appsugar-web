@@ -1,4 +1,4 @@
-package org.appsugar.extend;
+package org.appsugar.data.jpa.repository.ext;
 
 import java.util.List;
 

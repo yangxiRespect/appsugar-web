@@ -17,25 +17,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 @MappedSuperclass
 public abstract class GenericIdEntity<ID extends Serializable> implements Serializable {
 	private static final long serialVersionUID = -608692408189530550L;
-	public static final String _id = "id";
-	public static final String _createdAt = "createdAt";
-	public static final String _updatedAt = "updatedAt";
 
-	//唯一id
-	protected ID id;
+	public static final String _createdAT = "createdAt";
+	public static final String _updatedAT = "updatedAt";
 	//数据创建时间
 
 	protected Date createdAt;
 	//数据修改时间
 
 	protected Date updatedAt;
-
-	/**
-	 * id身份
-	 */
-	public ID identification() {
-		return id;
-	}
 
 	@CreatedDate
 	@Column(name = "created_at")
@@ -56,6 +46,11 @@ public abstract class GenericIdEntity<ID extends Serializable> implements Serial
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
+	/**
+	 * id身份
+	 */
+	public abstract ID identification();
 
 	@Override
 	public abstract String toString();

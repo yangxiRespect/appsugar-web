@@ -11,41 +11,50 @@ import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.domain.Sort;
 import org.appsugar.bean.entity.LongIdEntity;
-import org.appsugar.data.common.util.PageUtils;
-import org.appsugar.specification.IdEntitySpecification;
+import org.appsugar.data.common.repository.ext.RepositoryExtension;
+import org.appsugar.data.common.repository.ext.RepositoryExtensionable;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.data.jpa.repository.support.QueryDslJpaRepository;
+import org.springframework.data.querydsl.EntityPathResolver;
+import org.springframework.data.querydsl.SimpleEntityPathResolver;
 
 /**
  * 针对idEntity bean做增强
  * @author NewYoung
  * 2016年2月25日下午2:33:11
  */
-public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdEntityCondition>
-		extends SimpleJpaRepository<T, Long> implements JpaIdEntityRepository<T, C> {
+public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdEntityCondition> extends
+		QueryDslJpaRepository<T, Long> implements JpaIdEntityRepository<T, C>, RepositoryExtensionable<Long, T, C> {
 
-	protected IdEntitySpecification<T, C> specification;
+	protected RepositoryExtension<Long, T, C> repositoryExtension;
 
-	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, ?> entityInformation, EntityManager entityManager) {
-		super(entityInformation, entityManager);
+	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, Long> entityInformation, EntityManager entityManager) {
+		this(entityInformation, entityManager, SimpleEntityPathResolver.INSTANCE);
+	}
+
+	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, Long> entityInformation, EntityManager entityManager,
+			EntityPathResolver resolver) {
+		super(entityInformation, entityManager, resolver);
 	}
 
 	@Override
 	public Page<T> findPageByCondition(C condition, Pageable pageable) {
-		try {
-			return PageUtils.toPage(findAll(specification.clone(condition), PageUtils.toPageable(pageable)), pageable);
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
+		return repositoryExtension.findPageByCondition(condition, pageable);
 	}
 
 	@Override
 	public List<T> findByCondition(C condition) {
-		try {
-			return findAll(specification.clone(condition));
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
+		return repositoryExtension.findByCondition(condition);
+	}
+
+	@Override
+	public List<T> findByCondition(C condition, Sort sort) {
+		return repositoryExtension.findByCondition(condition, sort);
+	}
+
+	@Override
+	public long count(C condition) {
+		return repositoryExtension.count(condition);
 	}
 
 	@Override
@@ -64,21 +73,8 @@ public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdE
 	}
 
 	@Override
-	public List<T> findByCondition(C condition, Sort sort) {
-		try {
-			return findAll(specification.clone(condition), PageUtils.toSort(sort));
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public long count(C condition) {
-		try {
-			return count(specification.clone(condition));
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
+	public void setRepositoryExtension(RepositoryExtension<Long, T, C> repositoryExtension) {
+		this.repositoryExtension = repositoryExtension;
 	}
 
 }

@@ -12,7 +12,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import org.springframework.integration.redis.util.RedisLockRegistry;
 
 @Configuration
-@EnableRedisRepositories
+@EnableRedisRepositories(repositoryBaseClass = RedisIdEntityRepositoryImpl.class)
 public class ApplicationConfiguration {
 	@Bean
 	public RedisConnectionFactory connectionFactory() {
