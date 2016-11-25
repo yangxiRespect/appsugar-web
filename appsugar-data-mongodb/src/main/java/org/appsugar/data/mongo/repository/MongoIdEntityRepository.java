@@ -8,6 +8,7 @@ import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.appsugar.data.common.util.PageUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 /**
@@ -18,7 +19,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  */
 @NoRepositoryBean
 public interface MongoIdEntityRepository<T extends StringIdEntity, C extends StringIdEntityCondition>
-		extends MongoRepository<T, String>, GenericIdEntityRepository<String, T, C> {
+		extends MongoRepository<T, String>, QueryDslPredicateExecutor<T>, GenericIdEntityRepository<String, T, C> {
 
 	/**
 	 * 兼容内部分页查询

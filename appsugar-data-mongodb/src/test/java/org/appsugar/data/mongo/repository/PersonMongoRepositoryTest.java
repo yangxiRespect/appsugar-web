@@ -5,6 +5,7 @@ import java.util.List;
 import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.data.mongo.BaseMongoTest;
 import org.appsugar.data.mongo.domain.CityPersonStat;
+import org.appsugar.data.mongo.domain.PersonCondition;
 import org.appsugar.data.mongo.entity.Address;
 import org.appsugar.data.mongo.entity.Person;
 import org.appsugar.data.mongo.entity.Pet;
@@ -23,9 +24,18 @@ public class PersonMongoRepositoryTest extends BaseMongoTest {
 	private ApplicationContext context;
 
 	@Test
+	public void testFindByCondition() {
+		PersonCondition c = new PersonCondition();
+		c.setPetName("l");
+		c.setCity("zhuhai");
+		List<Person> result = personRepository.findByCondition(c);
+		logger.debug("testFindByCondition result is {}", result);
+	}
+
+	@Test
 	public void testGetComponent() {
 		MongoIdEntityRepository<Person, StringIdEntityCondition> repository = findComponent(context,
-				MongoIdEntityRepository.class, Person.class, StringIdEntityCondition.class);
+				MongoIdEntityRepository.class, Person.class, PersonCondition.class);
 		Assert.assertNotNull(repository);
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.mongodb.repository.support.QuerydslRepositorySupport;
 
 /**
  * 
@@ -23,13 +24,19 @@ import org.springframework.data.mongodb.core.query.Update;
  *
  * 2015年8月7日上午10:35:07
  */
-public class PersonMongoRepositoryImpl implements PersonMongoRepositoryCustom {
+public class PersonMongoRepositoryImpl extends QuerydslRepositorySupport implements PersonMongoRepositoryCustom {
 
 	private static final String addressCityPath = Paths.join(Person._address, Address._city);
 	private static final String addressStreetPath = Paths.join(Person._address, Address._street);
 	private static final String dynamicPetAgeColumn = Paths.join(Person._pets, Paths.MATCHED_SYMBOL, Pet._age);
 
 	private MongoOperations operation;
+
+	@Autowired
+	public PersonMongoRepositoryImpl(MongoOperations operations) {
+		super(operations);
+		this.operation = operations;
+	}
 
 	@Override
 	public boolean updatePersonAddress(Person person) {
@@ -77,8 +84,4 @@ public class PersonMongoRepositoryImpl implements PersonMongoRepositoryCustom {
 				Person.class).getN() > 0;
 	}
 
-	@Autowired
-	public void setOperation(MongoOperations operation) {
-		this.operation = operation;
-	}
 }

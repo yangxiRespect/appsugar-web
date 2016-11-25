@@ -1,21 +1,16 @@
-package org.appsugar.data.jpa.repository.querdsl;
+package org.appsugar.data.mongo.repository.querdsl;
 
 import java.util.List;
 
 import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.appsugar.data.common.repository.querydsl.QueryDslSpecification;
 import org.appsugar.data.common.repository.querydsl.QuerydslSpecificationRepositoryPostProcessor;
-import org.appsugar.data.jpa.repository.JpaIdEntityRepository;
+import org.appsugar.data.mongo.repository.MongoIdEntityRepository;
 
 import com.google.common.collect.Lists;
 
-/**
- * querydsl 
- * @author NewYoung
- * 2016年11月24日下午12:19:38
- */
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class JpaQueryDslSpecificationPostProcessor extends QuerydslSpecificationRepositoryPostProcessor {
+public class MongoQueryDslSpecificationPostProcess extends QuerydslSpecificationRepositoryPostProcessor {
 	/**
 	 * 获取按顺序匹配符合条件的Specification class
 	 * @author NewYoung
@@ -24,7 +19,7 @@ public class JpaQueryDslSpecificationPostProcessor extends QuerydslSpecification
 
 	@Override
 	protected List<Class<? extends QueryDslSpecification>> getOrderedSatisfySpecificationClass() {
-		return Lists.newArrayList(JpaQueryDslSpecification.class, QueryDslSpecification.class);
+		return Lists.newArrayList(MongoQueryDslSpecification.class, QueryDslSpecification.class);
 	}
 
 	/**
@@ -34,7 +29,7 @@ public class JpaQueryDslSpecificationPostProcessor extends QuerydslSpecification
 	 */
 	@Override
 	protected Class<? extends GenericIdEntityRepository> getBaseRepositoryClass() {
-		return JpaIdEntityRepository.class;
+		return MongoIdEntityRepository.class;
 	}
 
 }

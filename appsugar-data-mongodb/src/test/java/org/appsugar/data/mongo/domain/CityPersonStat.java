@@ -10,6 +10,16 @@ public class CityPersonStat {
 
 	private Long personCount;
 
+	public CityPersonStat() {
+		super();
+	}
+
+	public CityPersonStat(String city, Long personCount) {
+		super();
+		this.city = city;
+		this.personCount = personCount;
+	}
+
 	public String getCity() {
 		return city;
 	}

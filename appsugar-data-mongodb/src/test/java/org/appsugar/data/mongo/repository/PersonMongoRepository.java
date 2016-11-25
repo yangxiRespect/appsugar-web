@@ -2,7 +2,7 @@ package org.appsugar.data.mongo.repository;
 
 import java.util.List;
 
-import org.appsugar.bean.condition.StringIdEntityCondition;
+import org.appsugar.data.mongo.domain.PersonCondition;
 import org.appsugar.data.mongo.entity.Person;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PersonMongoRepository
-		extends MongoIdEntityRepository<Person, StringIdEntityCondition>, PersonMongoRepositoryCustom {
+		extends MongoIdEntityRepository<Person, PersonCondition>, PersonMongoRepositoryCustom {
 
 	/**
 	 * 根据城市模糊查询

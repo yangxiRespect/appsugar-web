@@ -11,7 +11,7 @@ import com.querydsl.core.types.EntityPath;
  * @author NewYoung
  * 2016年11月23日下午6:20:37
  */
-public class JpaQuerDslSpecification<C extends LongIdEntityCondition, Q extends EntityPath<? extends LongIdEntity>>
+public class JpaQueryDslSpecification<C extends LongIdEntityCondition, Q extends EntityPath<? extends LongIdEntity>>
 		extends LongIdEntityQueryDslSpecification<C, Q> {
 
 }
