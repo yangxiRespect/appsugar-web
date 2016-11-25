@@ -3,7 +3,7 @@ package org.appsugar.data.common.repository.querydsl;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 /**
  * 条件集合
@@ -12,23 +12,23 @@ import com.querydsl.core.types.Predicate;
  */
 public class PredicateCollection {
 
-	private List<Predicate> predicateList = Lists.newArrayList();
+	private List<BooleanExpression> predicateList = Lists.newArrayList();
 
 	/**
 	 * 添加条件
 	 * @author NewYoung
 	 * 2016年11月24日下午1:02:16
 	 */
-	public void add(Predicate predicate) {
+	public void add(BooleanExpression predicate) {
 		predicateList.add(predicate);
 	}
 
-	public List<Predicate> getPredicateList() {
+	public List<BooleanExpression> getPredicateList() {
 		return predicateList;
 	}
 
-	public Predicate[] toArray() {
-		return predicateList.toArray(new Predicate[predicateList.size()]);
+	public BooleanExpression[] toArray() {
+		return predicateList.toArray(new BooleanExpression[predicateList.size()]);
 	}
 
 	public int size() {

@@ -10,7 +10,6 @@ import org.appsugar.bean.entity.QGenericIdEntity;
 import org.springframework.util.ReflectionUtils;
 
 import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.Ops;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.DateTimePath;
 import com.querydsl.core.types.dsl.Expressions;
@@ -38,7 +37,7 @@ public class GenericEntityQueryDslSpecification<C extends GenericIdEntityConditi
 		if (Objects.equals(collection.size(), 1)) {
 			return collection.getPredicateList().get(0);
 		}
-		return Expressions.booleanOperation(Ops.AND, collection.toArray());
+		return Expressions.allOf(collection.toArray());
 	}
 
 	/**
