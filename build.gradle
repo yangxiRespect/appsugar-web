@@ -118,9 +118,6 @@ configure(subprojects) { project ->
 	            refreshDb: true
 	    ]
 	}
-
-	
-	build.dependsOn install
 	rootProject.tasks.afterReleaseBuild.dependsOn uploadArchives
 }
 
