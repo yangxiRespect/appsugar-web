@@ -1,7 +1,8 @@
 rootProject.name = "appsugar-web";
+include("appsugar-test")
 include("appsugar-bean")
 include("appsugar-commons")
-include("appsugar-test")
+include("appsugar-network")
 include("appsugar-data-common")
 include("appsugar-data-jpa")
 include("appsugar-data-mongodb")

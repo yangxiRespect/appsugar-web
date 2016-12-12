@@ -55,4 +55,9 @@ public abstract class GenericIdEntity<ID extends Serializable> implements Serial
 	@Override
 	public abstract String toString();
 
+	@Override
+	public abstract int hashCode();
+
+	@Override
+	public abstract boolean equals(Object obj);
 }
