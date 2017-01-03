@@ -78,7 +78,7 @@ configure(subprojects) { project ->
 		logbackVersion = "1.1.7"
 		jedisVersion = "2.9.0"
 		redissonVersion = "3.0.1"
-		solrVersion = "6.2.1"
+		solrVersion = "6.3.0"
 		queryDslVersion = "4.1.4"
 		nettyVersion = "4.1.6.Final"
 	}
