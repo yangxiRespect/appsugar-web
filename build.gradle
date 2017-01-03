@@ -158,14 +158,6 @@ project(":appsugar-commons"){
 	}
 }
 
-project(":appsugar-network"){
-	dependencies{
-		compile project(":appsugar-commons")
-		compile ("io.netty:netty-all:${nettyVersion}")
-	}
-}
-
-
 project(":appsugar-data-common"){
 	dependencies{
 		compile project(":appsugar-bean")

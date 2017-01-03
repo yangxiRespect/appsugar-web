@@ -54,6 +54,7 @@ public class QuerydslSpecificationRepositoryPostProcessor implements BeanPostPro
 					return bean;
 				}
 				Class<?> repositoryInterface = getRepositoryClass(baseRepositoryClass, advised.getProxiedInterfaces());
+				logger.debug("prepar to inject repository extension {}", repositoryInterface);
 				injectRepositoryExtension(repositoryInterface, (RepositoryExtensionable) target);
 			} catch (Exception e) {
 				throw new BeanCreationException(beanName, "jpa data base repository implements enhance fatal", e);
