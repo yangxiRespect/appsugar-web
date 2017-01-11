@@ -1,7 +1,8 @@
 package org.appsugar.data.solr;
 
+import java.io.Serializable;
+
 import org.appsugar.bean.condition.StringIdEntityCondition;
-import org.appsugar.bean.entity.StringIdEntity;
 import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
@@ -10,7 +11,7 @@ import org.springframework.data.solr.repository.SolrCrudRepository;
  * @author NewYoung
  * 2016年11月7日下午1:41:53
  */
-public interface SolrIdEntityRepository<T extends StringIdEntity, C extends StringIdEntityCondition>
+public interface SolrIdEntityRepository<T extends Serializable, C extends StringIdEntityCondition>
 		extends GenericIdEntityRepository<String, T, C>, SolrCrudRepository<T, String> {
 
 }

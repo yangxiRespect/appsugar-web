@@ -1,9 +1,10 @@
 package org.appsugar.data.mongo.repository;
 
+import java.io.Serializable;
+
 import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
-import org.appsugar.bean.entity.StringIdEntity;
 import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.appsugar.data.common.util.PageUtils;
 import org.springframework.data.domain.Example;
@@ -18,7 +19,7 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @param <T>
  */
 @NoRepositoryBean
-public interface MongoIdEntityRepository<T extends StringIdEntity, C extends StringIdEntityCondition>
+public interface MongoIdEntityRepository<T extends Serializable, C extends StringIdEntityCondition>
 		extends MongoRepository<T, String>, QueryDslPredicateExecutor<T>, GenericIdEntityRepository<String, T, C> {
 
 	/**

@@ -1,5 +1,6 @@
 package org.appsugar.data.jpa.repository;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import org.appsugar.bean.condition.LongIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.domain.Sort;
-import org.appsugar.bean.entity.LongIdEntity;
+import org.appsugar.bean.entity.GenericIdEntity;
 import org.appsugar.data.common.repository.ext.RepositoryExtension;
 import org.appsugar.data.common.repository.ext.RepositoryExtensionable;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
@@ -23,7 +24,7 @@ import org.springframework.data.querydsl.SimpleEntityPathResolver;
  * @author NewYoung
  * 2016年2月25日下午2:33:11
  */
-public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdEntityCondition> extends
+public class JpaIdEntityRepositoryImpl<T extends Serializable, C extends LongIdEntityCondition> extends
 		QueryDslJpaRepository<T, Long> implements JpaIdEntityRepository<T, C>, RepositoryExtensionable<Long, T, C> {
 
 	protected RepositoryExtension<Long, T, C> repositoryExtension;
@@ -59,11 +60,14 @@ public class JpaIdEntityRepositoryImpl<T extends LongIdEntity, C extends LongIdE
 
 	@Override
 	public <S extends T> S save(S entity) {
-		Date date = new Date();
-		if (Objects.isNull(entity.getId())) {
-			entity.setCreatedAt(date);
+		if (entity instanceof GenericIdEntity) {
+			GenericIdEntity<?> e = GenericIdEntity.class.cast(entity);
+			Date date = new Date();
+			if (Objects.isNull(e.identification())) {
+				e.setCreatedAt(date);
+			}
+			e.setUpdatedAt(date);
 		}
-		entity.setUpdatedAt(date);
 		return super.save(entity);
 	}
 

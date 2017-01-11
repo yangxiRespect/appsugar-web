@@ -1,12 +1,12 @@
 package org.appsugar.data.mongo.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.domain.Sort;
-import org.appsugar.bean.entity.StringIdEntity;
 import org.appsugar.data.common.repository.ext.RepositoryExtension;
 import org.appsugar.data.common.repository.ext.RepositoryExtensionable;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -20,7 +20,7 @@ import org.springframework.data.querydsl.SimpleEntityPathResolver;
  * @author NewYoung
  * 2016年11月22日下午6:37:59
  */
-public class MongoIdEntityRepositoryImpl<T extends StringIdEntity, C extends StringIdEntityCondition>
+public class MongoIdEntityRepositoryImpl<T extends Serializable, C extends StringIdEntityCondition>
 		extends QueryDslMongoRepository<T, String>
 		implements MongoIdEntityRepository<T, C>, RepositoryExtensionable<String, T, C> {
 
