@@ -137,4 +137,5 @@ public class PersonMongoRepositoryTest extends BaseMongoTest {
 		Person result = personRepository.findOne(Example.of(condition));
 		logger.debug("testExample condition {} result {}", condition, result);
 	}
+
 }

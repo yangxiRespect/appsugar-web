@@ -3,6 +3,7 @@ package org.appsugar.data.mongo.entity;
 import java.util.List;
 
 import org.appsugar.bean.entity.StringIdEntity;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -32,6 +33,10 @@ public class Person extends StringIdEntity {
 
 	@Field(_pets)
 	private List<Pet> pets;
+
+	/**ref query can only use id property**/
+	@DBRef
+	private Monster monster;
 
 	public String getFirstname() {
 		return firstname;
@@ -63,6 +68,14 @@ public class Person extends StringIdEntity {
 
 	public void setPets(List<Pet> pets) {
 		this.pets = pets;
+	}
+
+	public Monster getMonster() {
+		return monster;
+	}
+
+	public void setMonster(Monster monster) {
+		this.monster = monster;
 	}
 
 	@Override
