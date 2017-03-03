@@ -8,7 +8,7 @@ public class Order implements Serializable {
 
 	private static final long serialVersionUID = 7344337303196936185L;
 	/**
-	 * 排序知道
+	 * 排序字段
 	 */
 	private String propertity;
 	/**
