@@ -211,7 +211,7 @@ project(":appsugar-data-redis"){
 		testCompile ("redis.clients:jedis:${jedisVersion}")
 		testCompile project(":appsugar-test")
 	}
-	def server=new redis.embedded.RedisServerBuilder().setting("maxheap 512Mb").port(6379).build();
+	def server=new redis.embedded.RedisServerBuilder().setting("maxmemory 512Mb").port(6379).build();
 	task (stopRedisServer) {
 		doLast{
 			println "shutdown redis server"
