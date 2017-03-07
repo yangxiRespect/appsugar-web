@@ -1,12 +1,15 @@
 package org.appsugar.data.mongo.repository;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.domain.Sort;
+import org.appsugar.bean.entity.GenericIdEntity;
 import org.appsugar.data.common.repository.ext.RepositoryExtension;
 import org.appsugar.data.common.repository.ext.RepositoryExtensionable;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -61,4 +64,16 @@ public class MongoIdEntityRepositoryImpl<T extends Serializable, C extends Strin
 		this.repositoryExtension = repositoryExtension;
 	}
 
+	@Override
+	public <S extends T> S save(S entity) {
+		if (entity instanceof GenericIdEntity) {
+			GenericIdEntity<?> e = GenericIdEntity.class.cast(entity);
+			Date date = new Date();
+			if (Objects.isNull(e.identification())) {
+				e.setCreatedAt(date);
+			}
+			e.setUpdatedAt(date);
+		}
+		return super.save(entity);
+	}
 }

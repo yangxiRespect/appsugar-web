@@ -1,12 +1,15 @@
 package org.appsugar.data.redis;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.appsugar.bean.condition.StringIdEntityCondition;
 import org.appsugar.bean.domain.Page;
 import org.appsugar.bean.domain.Pageable;
 import org.appsugar.bean.domain.Sort;
-import org.appsugar.bean.entity.StringIdEntity;
+import org.appsugar.bean.entity.GenericIdEntity;
 import org.appsugar.data.common.repository.ext.RepositoryExtension;
 import org.appsugar.data.common.repository.ext.RepositoryExtensionable;
 import org.springframework.data.keyvalue.core.KeyValueOperations;
@@ -18,7 +21,7 @@ import org.springframework.data.repository.core.EntityInformation;
  * @author NewYoung
  * 2016年11月23日下午4:58:29
  */
-public class RedisIdEntityRepositoryImpl<T extends StringIdEntity, C extends StringIdEntityCondition>
+public class RedisIdEntityRepositoryImpl<T extends Serializable, C extends StringIdEntityCondition>
 		extends SimpleKeyValueRepository<T, String>
 		implements RedisIdEntityRepository<T, C>, RepositoryExtensionable<String, T, C> {
 
@@ -51,5 +54,18 @@ public class RedisIdEntityRepositoryImpl<T extends StringIdEntity, C extends Str
 	@Override
 	public long count(C condition) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public <S extends T> S save(S entity) {
+		if (entity instanceof GenericIdEntity) {
+			GenericIdEntity<?> e = GenericIdEntity.class.cast(entity);
+			Date date = new Date();
+			if (Objects.isNull(e.identification())) {
+				e.setCreatedAt(date);
+			}
+			e.setUpdatedAt(date);
+		}
+		return super.save(entity);
 	}
 }
