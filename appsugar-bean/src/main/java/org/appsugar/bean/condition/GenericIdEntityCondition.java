@@ -12,8 +12,8 @@ import java.util.Date;
  * @author NewYoung
  * 2016年7月4日下午3:27:43
  */
-public abstract class GenericIdEntityCondition<ID extends Serializable> {
-
+public abstract class GenericIdEntityCondition<ID extends Serializable> implements Serializable {
+	private static final long serialVersionUID = 6599771108999406563L;
 	protected ID id;
 	protected Date startAt;
 	protected Date endAt;
