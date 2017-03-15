@@ -7,13 +7,13 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-    	classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.13.0'
+    	classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:1.0.0'
      	classpath 'com.github.kstyrc:embedded-redis:0.6'
     }
 }
 plugins {
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
-    id 'net.researchgate.release' version '2.4.0'
+    id 'net.researchgate.release' version '2.5.0'
     //querydsl
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.7" apply  false
 }
