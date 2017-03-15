@@ -26,24 +26,29 @@ public class DefaultBatchOperation<T> implements BatchOperation<T> {
 
 	@Override
 	public int executeBatch(Collection<T> entities) throws SQLException {
-		try (PreparedStatement stm = connection.prepareStatement(information.sql())) {
+		try (PreparedStatement stm = connection.prepareStatement(information.sql(),
+				PreparedStatement.RETURN_GENERATED_KEYS)) {
 			int batchSize = information.batchSize();
 			if (batchSize < 1) {
 				throw new IllegalArgumentException("batchSize must greaterThan zero");
 			}
-			int i = 0;
+			int i = 1;
 			int result = 0;
 			for (T entity : entities) {
 				List<Object> parameterList = information.getParameterList(entity);
 				setParameter(1, parameterList, stm);
 				stm.addBatch();
 				if (i++ % batchSize == 0) {
-					result += sum(stm.executeBatch());
+					int[] affectedRow = stm.executeBatch();
+					result += sum(affectedRow);
+					information.onBatchExecuted(stm, affectedRow);
 					stm.clearBatch();
 				}
 			}
 			if (i % batchSize != 0) {
-				result += sum(stm.executeBatch());
+				int[] affectedRow = stm.executeBatch();
+				result += sum(affectedRow);
+				information.onBatchExecuted(stm, affectedRow);
 			}
 			return result;
 		}

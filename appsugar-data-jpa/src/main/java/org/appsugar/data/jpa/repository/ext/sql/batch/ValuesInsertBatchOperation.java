@@ -30,15 +30,17 @@ public class ValuesInsertBatchOperation<T> extends DefaultBatchOperation<T> {
 		Iterator<T> it = entities.iterator();
 		int result = 0;
 		for (int i = 0; i < batchCount; i++) {
-			try (PreparedStatement stm = connection
-					.prepareStatement(append(sb.append(sql), valueString, ",", batchSize - 1))) {
+			try (PreparedStatement stm = connection.prepareStatement(
+					append(sb.append(sql), valueString, ",", batchSize - 1), PreparedStatement.RETURN_GENERATED_KEYS)) {
 				int index = 1;
 				for (int j = 0; j < batchSize; j++) {
 					List<Object> parameterList = information.getParameterList(it.next());
 					setParameter(index, parameterList, stm);
 					index += parameterList.size();
 				}
-				result += stm.executeUpdate();
+				int affectedRows = stm.executeUpdate();
+				result += affectedRows;
+				information.onBatchExecuted(stm, new int[] { affectedRows });
 			}
 			sb.delete(0, sb.length());
 		}
@@ -54,7 +56,9 @@ public class ValuesInsertBatchOperation<T> extends DefaultBatchOperation<T> {
 				setParameter(index, parameterList, stm);
 				index += parameterList.size();
 			}
-			result += stm.executeUpdate();
+			int affectedRows = stm.executeUpdate();
+			result += affectedRows;
+			information.onBatchExecuted(stm, new int[] { affectedRows });
 		}
 		return result;
 	}

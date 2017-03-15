@@ -1,5 +1,7 @@
 package org.appsugar.data.jpa.repository.ext.sql.batch;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -28,4 +30,11 @@ public interface BatchOperationInformation<T> {
 	 * 每次批操作数
 	 */
 	public int batchSize();
+
+	/**
+	 * 每执行一次批处理后,调用该方法 
+	 * @author NewYoung
+	 * 2017年3月15日下午3:36:13
+	 */
+	public void onBatchExecuted(PreparedStatement stm, int[] results) throws SQLException;
 }
