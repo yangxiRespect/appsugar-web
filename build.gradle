@@ -13,9 +13,9 @@ buildscript {
 }
 plugins {
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
-    id 'net.researchgate.release' version '2.5.0'
+    id 'net.researchgate.release' version '2.6.0'
     //querydsl
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.7" apply  false
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.9" apply  false
 }
 apply plugin: 'java'
 
@@ -97,7 +97,7 @@ configure(subprojects) { project ->
 	    archives sourcesJar
 	}
 	
-	//deploy to maven nexus
+	//deploy to maven nexus. hiden username and password in gradle.properties
 	uploadArchives {
 	    repositories {
 	       mavenDeployer {
