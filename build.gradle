@@ -7,7 +7,6 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-    	classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:1.0.0'
      	classpath 'com.github.kstyrc:embedded-redis:0.6'
     }
 }
@@ -16,6 +15,7 @@ plugins {
     id 'net.researchgate.release' version '2.6.0'
     //querydsl
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.9" apply  false
+    id "com.sourcemuse.mongo" version "1.0.0" apply false
 }
 apply plugin: 'java'
 
@@ -180,7 +180,7 @@ project(":appsugar-data-jpa"){
 }
 
 project(":appsugar-data-mongodb"){
-	apply plugin: 'mongo'
+	apply plugin: "com.sourcemuse.mongo"
 	dependencies{
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-mongodb:${springMongodbVersion}")
