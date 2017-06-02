@@ -9,7 +9,7 @@ import org.appsugar.data.mongo.repository.MongoIdEntityRepository;
 
 import com.google.common.collect.Lists;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({ "rawtypes" })
 public class MongoQueryDslSpecificationPostProcess extends QuerydslSpecificationRepositoryPostProcessor {
 	/**
 	 * 获取按顺序匹配符合条件的Specification class
