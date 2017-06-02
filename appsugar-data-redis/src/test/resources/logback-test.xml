@@ -12,6 +12,7 @@
 	
 	<logger name="org.apache.commons.beanutils" level="WARN"/>
 	
+	<logger name="com.lambdaworks" level="WARN"/>	
  
     <root level="debug">
    		<appender-ref ref="STDOUT" />

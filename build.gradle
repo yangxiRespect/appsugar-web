@@ -76,7 +76,7 @@ configure(subprojects) { project ->
 		disruptorVersion = "3.3.4"
 		jacksonVersion = "2.8.8"
 		logbackVersion = "1.2.3"
-		jedisVersion = "2.9.0"
+		lettuceVersion = "4.3.2.Final"
 		redissonVersion = "3.0.1"
 		solrVersion = "6.3.0"
 		queryDslVersion = "4.1.4"
@@ -205,10 +205,10 @@ project(":appsugar-data-redis"){
 		compile project(":appsugar-data-common")
 		compile ("org.springframework.data:spring-data-redis:${springRedisVersion}")
 		compile ("org.springframework.integration:spring-integration-redis:${springVersion}")
+		compile ("biz.paluch.redis:lettuce:${lettuceVersion}")
 		compileOnly ("com.querydsl:querydsl-collections:${queryDslVersion}")
 		testCompile ("com.querydsl:querydsl-collections:${queryDslVersion}")
 		testCompile ("org.redisson:redisson:${redissonVersion}")
-		testCompile ("redis.clients:jedis:${jedisVersion}")
 		testCompile project(":appsugar-test")
 	}
 	def server=new redis.embedded.RedisServerBuilder().setting("maxmemory 512Mb").port(6379).build();
