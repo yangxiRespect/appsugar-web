@@ -2,13 +2,9 @@ package org.appsugar.data.solr;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import org.appsugar.bean.condition.StringIdEntityCondition;
-import org.appsugar.bean.domain.Page;
-import org.appsugar.bean.domain.Pageable;
-import org.appsugar.bean.domain.Sort;
 import org.appsugar.bean.entity.GenericIdEntity;
 import org.appsugar.data.common.repository.ext.RepositoryExtension;
 import org.appsugar.data.common.repository.ext.RepositoryExtensionable;
@@ -33,23 +29,8 @@ public class SolrIdEntityRepositoryImpl<T extends Serializable, C extends String
 	}
 
 	@Override
-	public Page<T> findPageByCondition(C condition, Pageable pageable) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public List<T> findByCondition(C condition) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public List<T> findByCondition(C condition, Sort sort) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public long count(C condition) {
-		throw new UnsupportedOperationException();
+	public RepositoryExtension<String, T, C> getRepositoryExtension() {
+		return null;
 	}
 
 	@Override

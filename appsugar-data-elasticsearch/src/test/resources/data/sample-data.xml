@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<datasets>
+	<dataset name="org.appsugar.data.redis.repository.Person">
+		<datalist>
+			<data id="-1" createdAt="2016-11-04 00:00:00" updatedAt="2016-11-04 00:00:00" name="NewYoung" phone="7758258" email="i love you"/>
+		</datalist>
+	</dataset>
+</datasets>

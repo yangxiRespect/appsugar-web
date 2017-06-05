@@ -7,6 +7,8 @@ package org.appsugar.bean.condition;
  */
 public class StringIdEntityCondition extends GenericIdEntityCondition<String> {
 
+	private static final long serialVersionUID = 7006108286698573694L;
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

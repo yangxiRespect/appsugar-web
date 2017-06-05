@@ -1,3 +1,4 @@
+import pl.allegro.tech.embeddedelasticsearch.*;
 buildscript {
 	repositories {
 		maven{
@@ -7,7 +8,9 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-     	classpath 'com.github.kstyrc:embedded-redis:0.6'
+     	classpath ("com.github.kstyrc:embedded-redis:0.6")
+     	//https://github.com/allegro/embedded-elasticsearch
+     	classpath ("pl.allegro.tech:embedded-elasticsearch:2.1.0")
     }
 }
 plugins {
@@ -67,6 +70,7 @@ configure(subprojects) { project ->
 		springMongodbVersion = "1.10.3.RELEASE"
 		springRedisVersion = "1.8.3.RELEASE"
 		springSolrVersion = "2.1.3.RELEASE"
+		springElasticVersion= "2.1.3.RELEASE"
 		springVersion = "4.3.8.RELEASE"
 		slf4jVersion = "1.7.25"
 		commonsLangVersion = "3.4"
@@ -78,7 +82,7 @@ configure(subprojects) { project ->
 		logbackVersion = "1.2.3"
 		lettuceVersion = "4.3.2.Final"
 		redissonVersion = "3.0.1"
-		solrVersion = "6.3.0"
+		solrVersion = "6.5.1"
 		queryDslVersion = "4.1.4"
 		nettyVersion = "4.1.11.Final"
 	}
@@ -234,6 +238,28 @@ project(":appsugar-data-solr"){
 	}
 	//skip test until spring support solr 6 
 	test.enabled = false;
+}
+
+project(":appsugar-data-elasticsearch"){
+	dependencies{
+		compile project(":appsugar-data-common")
+		compile ("org.springframework.data:spring-data-elasticsearch:${springElasticVersion}")
+		compileOnly ("com.querydsl:querydsl-collections:${queryDslVersion}")
+		testCompile project(":appsugar-test")
+		testCompile ("com.querydsl:querydsl-collections:${queryDslVersion}")
+		
+	}
+	def embeddedElastic = EmbeddedElastic.builder().withElasticVersion("2.4.0").withSetting(PopularProperties.TRANSPORT_TCP_PORT, 9350).withEsJavaOpts("-Xms128m -Xmx512m").build();
+    task (stopElasticServer) {
+		doLast{
+			println "shutdown elasticsearch server"
+			embeddedElastic.stop();
+		}
+	} 
+	test.doFirst{
+		embeddedElastic.start();
+	}
+	test.finalizedBy(stopElasticServer)
 }
 
 project(":appsugar-service"){
