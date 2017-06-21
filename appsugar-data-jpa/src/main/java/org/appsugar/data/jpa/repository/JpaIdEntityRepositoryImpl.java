@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import javax.persistence.EntityManager;
 
-import org.appsugar.bean.condition.LongIdEntityCondition;
+import org.appsugar.bean.condition.GenericIdEntityCondition;
 import org.appsugar.bean.entity.GenericIdEntity;
 import org.appsugar.data.common.repository.ext.RepositoryExtension;
 import org.appsugar.data.common.repository.ext.RepositoryExtensionable;
@@ -21,16 +21,17 @@ import org.springframework.data.querydsl.SimpleEntityPathResolver;
  * @author NewYoung
  * 2016年2月25日下午2:33:11
  */
-public class JpaIdEntityRepositoryImpl<T extends Serializable, C extends LongIdEntityCondition> extends
-		QueryDslJpaRepository<T, Long> implements JpaIdEntityRepository<T, C>, RepositoryExtensionable<Long, T, C> {
+public class JpaIdEntityRepositoryImpl<T extends Serializable, ID extends Serializable, C extends GenericIdEntityCondition<ID>>
+		extends QueryDslJpaRepository<T, ID>
+		implements JpaGenericIdEntityRepository<T, ID, C>, RepositoryExtensionable<ID, T, C> {
 
-	protected RepositoryExtension<Long, T, C> repositoryExtension;
+	protected RepositoryExtension<ID, T, C> repositoryExtension;
 
-	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, Long> entityInformation, EntityManager entityManager) {
+	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
 		this(entityInformation, entityManager, SimpleEntityPathResolver.INSTANCE);
 	}
 
-	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, Long> entityInformation, EntityManager entityManager,
+	public JpaIdEntityRepositoryImpl(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager,
 			EntityPathResolver resolver) {
 		super(entityInformation, entityManager, resolver);
 	}
@@ -54,12 +55,12 @@ public class JpaIdEntityRepositoryImpl<T extends Serializable, C extends LongIdE
 	}
 
 	@Override
-	public void setRepositoryExtension(RepositoryExtension<Long, T, C> repositoryExtension) {
+	public void setRepositoryExtension(RepositoryExtension<ID, T, C> repositoryExtension) {
 		this.repositoryExtension = repositoryExtension;
 	}
 
 	@Override
-	public RepositoryExtension<Long, T, C> getRepositoryExtension() {
+	public RepositoryExtension<ID, T, C> getRepositoryExtension() {
 		return repositoryExtension;
 	}
 

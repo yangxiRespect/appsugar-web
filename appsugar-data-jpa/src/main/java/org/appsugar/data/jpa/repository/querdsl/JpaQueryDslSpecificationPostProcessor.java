@@ -5,7 +5,7 @@ import java.util.List;
 import org.appsugar.data.common.repository.GenericIdEntityRepository;
 import org.appsugar.data.common.repository.querydsl.QueryDslSpecification;
 import org.appsugar.data.common.repository.querydsl.QuerydslSpecificationRepositoryPostProcessor;
-import org.appsugar.data.jpa.repository.JpaIdEntityRepository;
+import org.appsugar.data.jpa.repository.JpaGenericIdEntityRepository;
 
 import com.google.common.collect.Lists;
 
@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
  * @author NewYoung
  * 2016年11月24日下午12:19:38
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({ "rawtypes" })
 public class JpaQueryDslSpecificationPostProcessor extends QuerydslSpecificationRepositoryPostProcessor {
 	/**
 	 * 获取按顺序匹配符合条件的Specification class
@@ -24,7 +24,7 @@ public class JpaQueryDslSpecificationPostProcessor extends QuerydslSpecification
 
 	@Override
 	protected List<Class<? extends QueryDslSpecification>> getOrderedSatisfySpecificationClass() {
-		return Lists.newArrayList(JpaQueryDslSpecification.class, QueryDslSpecification.class);
+		return Lists.newArrayList(JpaGenericQueryDslSpecification.class, QueryDslSpecification.class);
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class JpaQueryDslSpecificationPostProcessor extends QuerydslSpecification
 	 */
 	@Override
 	protected Class<? extends GenericIdEntityRepository> getBaseRepositoryClass() {
-		return JpaIdEntityRepository.class;
+		return JpaGenericIdEntityRepository.class;
 	}
 
 }
