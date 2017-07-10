@@ -9,7 +9,7 @@ import org.appsugar.bean.entity.GenericIdEntity;
 import org.appsugar.bean.entity.QGenericIdEntity;
 import org.springframework.util.ReflectionUtils;
 
-import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.Path;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.DateTimePath;
 import com.querydsl.core.types.dsl.Expressions;
@@ -19,7 +19,7 @@ import com.querydsl.core.types.dsl.Expressions;
  * @author NewYoung
  * 2016年11月23日下午2:33:11
  */
-public class GenericEntityQueryDslSpecification<C extends GenericIdEntityCondition<? extends Serializable>, Q extends EntityPath<? extends GenericIdEntity<? extends Serializable>>>
+public class GenericEntityQueryDslSpecification<C extends GenericIdEntityCondition<? extends Serializable>, Q extends Path<? extends GenericIdEntity<? extends Serializable>>>
 		implements QueryDslSpecification<C, Q> {
 
 	protected DateTimePath<java.util.Date> createdAt;

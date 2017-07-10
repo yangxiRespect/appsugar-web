@@ -6,10 +6,10 @@ import org.appsugar.bean.condition.LongIdEntityCondition;
 import org.appsugar.bean.entity.LongIdEntity;
 import org.appsugar.bean.entity.QLongIdEntity;
 
-import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.NumberPath;
 
-public class LongIdEntityQueryDslSpecification<C extends LongIdEntityCondition, Q extends EntityPath<? extends LongIdEntity>>
+public class LongIdEntityQueryDslSpecification<C extends LongIdEntityCondition, Q extends Path<? extends LongIdEntity>>
 		extends GenericEntityQueryDslSpecification<C, Q> {
 
 	protected NumberPath<Long> id;

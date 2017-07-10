@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.appsugar.bean.condition.GenericIdEntityCondition;
 import org.appsugar.bean.entity.GenericIdEntity;
 
-import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.Path;
 import com.querydsl.core.types.Predicate;
 
 /**
@@ -13,7 +13,7 @@ import com.querydsl.core.types.Predicate;
  * @author NewYoung
  * 2016年11月23日下午2:02:06
  */
-public interface QueryDslSpecification<C extends GenericIdEntityCondition<? extends Serializable>, Q extends EntityPath<? extends GenericIdEntity<? extends Serializable>>> {
+public interface QueryDslSpecification<C extends GenericIdEntityCondition<? extends Serializable>, Q extends Path<? extends GenericIdEntity<? extends Serializable>>> {
 
 	/**
 	 * 根据condition转换Predicate

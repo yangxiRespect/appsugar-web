@@ -7,10 +7,10 @@ import org.appsugar.bean.entity.QStringIdEntity;
 import org.appsugar.bean.entity.StringIdEntity;
 
 import com.google.common.base.Strings;
-import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.StringPath;
 
-public class StringIdEntityQueryDslSpecification<C extends StringIdEntityCondition, Q extends EntityPath<? extends StringIdEntity>>
+public class StringIdEntityQueryDslSpecification<C extends StringIdEntityCondition, Q extends Path<? extends StringIdEntity>>
 		extends GenericEntityQueryDslSpecification<C, Q> {
 
 	private StringPath id;

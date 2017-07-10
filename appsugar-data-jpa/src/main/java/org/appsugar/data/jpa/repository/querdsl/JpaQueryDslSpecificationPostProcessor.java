@@ -24,7 +24,8 @@ public class JpaQueryDslSpecificationPostProcessor extends QuerydslSpecification
 
 	@Override
 	protected List<Class<? extends QueryDslSpecification>> getOrderedSatisfySpecificationClass() {
-		return Lists.newArrayList(JpaGenericQueryDslSpecification.class, QueryDslSpecification.class);
+		return Lists.newArrayList(JpaQueryDslSpecification.class, JpaStringQueryDslSpecification.class,
+				QueryDslSpecification.class);
 	}
 
 	/**
