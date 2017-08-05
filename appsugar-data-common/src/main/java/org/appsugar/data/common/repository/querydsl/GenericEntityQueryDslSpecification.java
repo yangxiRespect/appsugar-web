@@ -70,7 +70,7 @@ public class GenericEntityQueryDslSpecification<C extends GenericIdEntityConditi
 			createdAt = findPath(root, r.createdAt.getMetadata().getName());
 		}
 		if (Objects.isNull(updatedAt)) {
-			createdAt = findPath(root, r.updatedAt.getMetadata().getName());
+			updatedAt = findPath(root, r.updatedAt.getMetadata().getName());
 		}
 	}
 
