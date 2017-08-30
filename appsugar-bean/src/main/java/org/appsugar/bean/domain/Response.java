@@ -1,12 +1,14 @@
 package org.appsugar.bean.domain;
 
+import java.io.Serializable;
+
 /**
  *  traditional Response
  * @author NewYoung
  *
  * @param <T>
  */
-public class Response<T> {
+public class Response<T> implements Serializable {
 	public static final int SUCCESS_CODE = 0;
 	public static final int ERROR_CODE = -1;
 	public static final int UNAUTHENTICATION_CODE = 401;
@@ -15,7 +17,7 @@ public class Response<T> {
 	public static final Response<Void> UN_AUTHORIZATION = new Response<>(UNAUTHORIZATION_CODE, "unauthorized");
 	public static final Response<Void> SUCCESS = new Response<>(SUCCESS_CODE, "success");
 	public static final Response<Void> ERROR = new Response<>(ERROR_CODE, "error");
-
+	private static final long serialVersionUID = 8736245914960162208L;
 	private int code;
 	private String msg;
 	private T data;
