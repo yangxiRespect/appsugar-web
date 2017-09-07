@@ -16,9 +16,9 @@ buildscript {
 plugins {
 	//gradle release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=1.0.0-release -Prelease.newVersion=1.0.1-SNAPSHOT
     id 'net.researchgate.release' version '2.6.0'
-    //querydsl
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.9" apply  false
     id "com.sourcemuse.mongo" version "1.0.0" apply false
+    id "net.ltgt.apt" version "0.10" apply  false
 }
 apply plugin: 'java'
 
@@ -85,6 +85,9 @@ configure(subprojects) { project ->
 		solrVersion = "6.5.1"
 		queryDslVersion = "4.1.4"
 		nettyVersion = "4.1.11.Final"
+		daggerVersion = "2.11"
+		gsonVersion = "2.8.1"
+		undertowVersion = "1.4.19.Final"
 	}
 	compileJava.options.encoding = ext["encoding"]
 	compileTestJava.options.encoding = ext["encoding"]
@@ -267,6 +270,28 @@ project(":appsugar-service"){
 		compile project(":appsugar-data-jpa")
 		compileOnly("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:${jpaVersion}")
 		compileOnly("org.springframework.data:spring-data-jpa:${springDataJpaVersion}")
+	}
+}
+
+project(":appsugar-controller-common"){
+	apply plugin : "net.ltgt.apt"
+	dependencies{
+		apt ("com.google.dagger:dagger-compiler:${daggerVersion}")
+		compile ("com.google.dagger:dagger:${daggerVersion}")
+	}
+}
+
+project(":appsugar-controller-undertow"){
+	apply plugin : "net.ltgt.apt"
+	dependencies{
+		compile project(":appsugar-controller-common")
+		compile project(":appsugar-bean")
+		compile ("io.undertow:undertow-core:${undertowVersion}")
+		compileOnly ("com.google.code.gson:gson:${gsonVersion}")
+		compile ("com.google.dagger:dagger:${daggerVersion}")
+		compile ("org.slf4j:slf4j-api:${slf4jVersion}")
+		testCompile ("junit:junit:${junitVersion}")
+		apt ("com.google.dagger:dagger-compiler:${daggerVersion}")
 	}
 }
 
