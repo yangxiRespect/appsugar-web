@@ -62,6 +62,7 @@ public class VertxModule {
 		HttpServer server = v.createHttpServer();
 		address.stream().forEach(e -> server.requestHandler(handler::accept).listen(e.port, e.host));
 		logger.info("server listening on {}  spend {} ", address, System.currentTimeMillis() - time);
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> server.close()));
 		return server;
 	}
 
