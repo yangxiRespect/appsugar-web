@@ -29,6 +29,7 @@ public abstract class AbstractHandlerRegister implements HandlerRegister {
 
 	@Override
 	public HandlerRegister method(String method, String template, Supplier<Object> supplier) {
+		//TODO process template {xxx}  to  :xxx
 		router.route(template).method(HttpMethod.valueOf(method)).handler(e -> handler(supplier, e));
 		return this;
 	}
