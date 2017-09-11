@@ -88,6 +88,7 @@ configure(subprojects) { project ->
 		daggerVersion = "2.11"
 		gsonVersion = "2.8.1"
 		undertowVersion = "1.4.19.Final"
+		vertxVersion  = "3.4.2"
 	}
 	compileJava.options.encoding = ext["encoding"]
 	compileTestJava.options.encoding = ext["encoding"]
@@ -294,4 +295,24 @@ project(":appsugar-controller-undertow"){
 		apt ("com.google.dagger:dagger-compiler:${daggerVersion}")
 	}
 }
+
+project(":appsugar-controller-vertx"){
+	apply plugin : "net.ltgt.apt"
+	dependencies{
+		compile project(":appsugar-controller-common")
+		compile project(":appsugar-bean")
+		compile ("io.vertx:vertx-web:${vertxVersion}")
+		compile ("org.slf4j:slf4j-api:${slf4jVersion}")
+		testCompile ("junit:junit:${junitVersion}")
+		apt ("com.google.dagger:dagger-compiler:${daggerVersion}")
+	}
+}
+
+
+
+
+
+
+
+
 
