@@ -20,6 +20,7 @@ import dagger.Provides;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 
 @Module
 public class VertxModule {
@@ -42,7 +43,9 @@ public class VertxModule {
 	@Provides
 	@Singleton
 	public Router router(Vertx v) {
-		return Router.router(v);
+		Router result = Router.router(v);
+		result.route().handler(BodyHandler.create());
+		return result;
 	}
 
 	@Provides

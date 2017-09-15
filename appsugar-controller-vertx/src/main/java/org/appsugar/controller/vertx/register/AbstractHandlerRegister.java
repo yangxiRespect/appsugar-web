@@ -34,6 +34,7 @@ public abstract class AbstractHandlerRegister implements HandlerRegister {
 		return this;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void handler(Supplier<Object> supplier, RoutingContext ctx) {
 		HttpServerResponse response = ctx.response();
 		try {
