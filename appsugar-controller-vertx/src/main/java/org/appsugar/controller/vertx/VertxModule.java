@@ -51,7 +51,9 @@ public class VertxModule {
 	@Provides
 	@Singleton
 	public Vertx vertx() {
-		return this.vertx != null ? vertx : Vertx.vertx();
+		Vertx v = this.vertx != null ? vertx : Vertx.vertx();
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> v.close()));
+		return v;
 	}
 
 	@Provides
